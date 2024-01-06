@@ -1,0 +1,111 @@
+/* Estilos para el body y otros elementos... */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f5f5; /* Gris claro */
+    margin: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #d0d0d0; /* Gris más claro */
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #4b0082; /* Índigo oscuro */
+    color: white;
+}
+
+ul {
+    /* Conserva los estilos de la lista */
+}
+
+li {
+    /* Conserva los estilos de la lista */
+}
+
+a {
+    text-decoration: none;
+    color: #6a5acd; /* Azul pizarra medio */
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #483d8b; /* Azul pizarra oscuro */
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #9932cc; /* Violeta oscuro */
+    color: white;
+}
+
+h1 {
+    color: #800080; /* Púrpura */
+}
+
+input[type="text"],
+input[type="number"],
+button[type="submit"] {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #8a2be2; /* Azul violeta oscuro */
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+    width: 300px; /* Ajusta el ancho aquí según tu preferencia */
+}
+
+button {
+    background-color: #6a5acd; /* Azul pizarra medio */
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #9932cc; /* Violeta oscuro */
+}
+
+.submit-button {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #8a2be2; /* Azul violeta oscuro */
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+    background-color: #800080; /* Púrpura */
+    color: white;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #9932cc; /* Violeta oscuro */
+}
+
+/* Otros estilos... */
+
+.search-form-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-form:hover .submit-button {
+    background-color: #9932cc; /* Violeta oscuro */
+}
+
+/* Resto de estilos... */

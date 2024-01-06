@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+<h1> <a th:href="@{/wizard/list}">Magical item information </a></h1>
+<table>
+    <tr th:if="${items}">
+        <th> Item ID</th>
+        <th> Magical items</th>
+        <th> Power </th>
+        <th> Update</th>
+        <th> Delete</th>
+        <th> Wizard name</th>
+    </tr>
+    <tr th:if="${items}" th:each="item, itemStat: ${items}" th:object="${item}">
+        <td th:text="*{id}">
+        <td th:text="*{name}">
+        <td th:text="*{getPowerLevel()}">
+        <!-- Display the wizard's name only in the first row -->
+        <td>
+            <form th:method="put" th:action="@{/item/list/__${item.wizard.id}__/__${item.id}__}">
+                <label>
+                    <input type="text" th:value="*{name}" name="name">
+                </label>
+                <label>
+                    <input type="number" th:value="*{powerLevel}" name="powerLevel" th:min="0">
+                </label>
+                <button> Update</button>
+            </form>
+        </td>
+        <td>
+            <form th:method="delete" th:action="@{/item/list/__${item.wizard.id}__/__${item.id}__}">
+                <button> Delete</button>
+            </form>
+        </td>
+        <td th:if="${itemStat.first}" th:text="*{getWizard().getName()}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="search-form-container">
+    <form th:action="@{/wizard/search}" method="get">
+        <label>Get wizard details, please enter Wizard ID:
+            <input type="number" name="id" required th:min="1" th:max="${wizards.size()}"><!--NAME --compueba si el RequestParameter y el name son iguales-->
+        </label>
+        <button type="submit" class="submit-button">Search</button>
+    </form>
+    <form th:action="@{/item/search}" method="get">
+        <label> Get wizard items, please enter Wizard ID:
+            <input th:type="number" name="wizardId" required min="1" th:max="${wizards.size()}">
+            <button type="submit" class="submit-button">Search</button>
+        </label>
+    </form>
+</div>
+<h1> Our Wizards </h1>
+<table>
+    <tr>
+        <th> ID</th>
+        <th> Wizards</th>
+        <th> Magical items</th>
+        <th> Power </th>
+        <th> Total power </th>
+        <th>Delete wizard</th>
+        <th>Update wizard</th>
+    </tr>
+    <tr th:each="wizard: ${wizards}" th:object="${wizard}">
+        <td th:text="*{id}">
+        <td th:text="*{name}">
+        <td>
+            <ul>
+                <li th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getName()}"></li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getPowerLevel()}"></li>
+            </ul>
+        </td>
+        <td th:text="*{getTotalScore()}"></td>
+        <td>
+            <form th:method="delete" th:action="@{/wizard/list/__${wizard.id}__}">
+            <button> delete</button>
+            </form>
+        </td>
+        <td>
+            <form th:method="put" th:action="@{/wizard/list/__${wizard.id}__}" >
+                <label>
+                    <input type="text" th:value="*{name}" name="name" placeholder="name..">
+                </label>
+                <label>
+                    <input type="number" th:value="*{age}" name="age" placeholder="age.." th:min="0">
+                </label>
+                <button> Update</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<form th:method="post" th:action="@{/wizard/list/add}">
+    <label>
+    Add a new wizard:
+        <input th:type="text" name="name" placeholder="name" required>
+        <input th:type="number" name="age" placeholder="age" min="0" max="1000" required>
+        <input type="submit" value="add" class="submit-button">
+    </label>
+</form>
+<a th:href="@{/item/add}" class="submit-button"> Add item</a>
+</body>
+</html>
