@@ -27,24 +27,25 @@ public class wizardpedia implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        var w1= new Wizard("El gran maravilloso", 20);
-        var w2= new Wizard("EL innombrable", 43);
-        wizardRepository.saveAll(List.of(w1, w2));
-
-        var m1 = new MagicalItem("la espada de la muerte", 25);
-        var m2 = new MagicalItem("el arca infernal", 55);
-        var m3 = new MagicalItem("el fuego de la muerte", 71);
-        var m4 = new MagicalItem("el silencioso", 5);
-        var m5 = new MagicalItem("el ojo", 93);
-
-        m2.setWizard(w1);
-        m4.setWizard(w1);
-        m1.setWizard(w2);
-        m3.setWizard(w2);
-        m4.setWizard(w2);
-        m5.setWizard(w2);
-
-        magicalItemRepository.saveAll(List.of(m1, m2, m3, m4, m5));
+//        var w1 = new Wizard("The Great Marvelous", 20);
+//        var w2 = new Wizard("The Unnameable", 43);
+//        wizardRepository.saveAll(List.of(w1, w2));
+//
+//        var m1 = new MagicalItem("The Sword of Death", 25);
+//        var m2 = new MagicalItem("The Infernal Ark", 55);
+//        var m3 = new MagicalItem("The Fire of Death", 71);
+//        var m4 = new MagicalItem("The Silent One", 5);
+//        var m5 = new MagicalItem("The Eye", 93);
+//
+//
+//        m2.setWizard(w1);
+//        m4.setWizard(w1);
+//        m1.setWizard(w2);
+//        m3.setWizard(w2);
+//        m4.setWizard(w2);
+//        m5.setWizard(w2);
+//
+//        magicalItemRepository.saveAll(List.of(m1, m2, m3, m4, m5));
 
 
     }
