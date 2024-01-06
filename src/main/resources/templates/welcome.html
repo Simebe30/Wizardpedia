@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet"  th:href="@{/style.css}">
+    <title>Welcome to Wizardpedia</title>
 </head>
 <body>
-<h1> <a th:href="@{/wizard/list}"> Wizardpedia </a></h1>
+<header>
+<h1 th:fragment="headerFragment" class="headerContainer">
+    <a th:href="@{/wizard/list}"> Wizardpedia </a>
+</h1>
+</header>
 <p>
     Hello and welcome to Wizardpedia!<br>
 
@@ -14,5 +19,10 @@
     and find out how many power points you have. Have fun exploring<br>
     and discovering the magic!
 </p>
+<form th:action="@{/wizard/list}" method="get">
+<button>
+    Let's start!
+</button>
+</form>
 </body>
 </html>
