@@ -1,0 +1,28 @@
+.headerContainer {
+    margin: 0;
+    padding: 2em;
+    background-image: url('wizardfondo.jpg');
+    background-position: center;
+    font-family: pt Serif, serif;
+    text-align: center;
+}
+
+.headerContainer a {
+    text-decoration: none;
+    color: antiquewhite;
+    font-size: 50px;
+    display: inline-block;
+}
+
+.headerContainer a:hover {
+    color: #c6c4f8;
+}
+
+.search-form-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    color: antiquewhite;
+    font-family: "Corbel Light", serif;
+}

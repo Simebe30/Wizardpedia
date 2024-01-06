@@ -1,0 +1,26 @@
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4c74af;
+    color: antiquewhite;
+    font-family: pt Serif, serif;
+    margin: auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4f46c7;
+}
+
+p{
+    margin: auto;
+    padding: 4em;
+    text-align: center;
+    font-family: pt Serif, serif;
+    font-size: 35px;
+}

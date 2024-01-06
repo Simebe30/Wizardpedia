@@ -3,23 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <link rel="stylesheet"  th:href="@{/headerStyle.css}">
+    <link rel="stylesheet"  th:href="@{/mainStyle.css}">
 </head>
 <body>
-<div class="search-form-container">
+<h1 th:fragment="headerFragment" class="headerContainer">
+    <div class="search-form-container">
     <form th:action="@{/wizard/search}" method="get">
         <label>Get wizard details, please enter Wizard ID:
-            <input type="number" name="id" required th:min="1" th:max="${wizards.size()}"><!--NAME --compueba si el RequestParameter y el name son iguales-->
+            <input type="number" name="id" required th:min="1" ><!--NAME --compueba si el RequestParameter y el name son iguales-->
         </label>
-        <button type="submit" class="submit-button">Search</button>
+        <button type="submit" >Search</button>
     </form>
     <form th:action="@{/item/search}" method="get">
         <label> Get wizard items, please enter Wizard ID:
             <input th:type="number" name="wizardId" required min="1" th:max="${wizards.size()}">
-            <button type="submit" class="submit-button">Search</button>
+            <button type="submit">Search</button>
         </label>
     </form>
-</div>
+    </div>
+    <a th:href="@{/wizard/list}"> Wizardpedia </a>
+</h1>
+<!--<div class="search-form-container">-->
+<!--    <form th:action="@{/wizard/search}" method="get">-->
+<!--        <label>Get wizard details, please enter Wizard ID:-->
+<!--            <input type="number" name="id" required th:min="1" th:max="${wizards.size()}">&lt;!&ndash;NAME &#45;&#45;compueba si el RequestParameter y el name son iguales&ndash;&gt;-->
+<!--        </label>-->
+<!--        <button type="submit" class="submit-button">Search</button>-->
+<!--    </form>-->
+<!--    <form th:action="@{/item/search}" method="get">-->
+<!--        <label> Get wizard items, please enter Wizard ID:-->
+<!--            <input th:type="number" name="wizardId" required min="1" th:max="${wizards.size()}">-->
+<!--            <button type="submit" class="submit-button">Search</button>-->
+<!--        </label>-->
+<!--    </form>-->
+<!--</div>-->
 <h1> Our Wizards </h1>
 <table>
     <tr>
