@@ -44,7 +44,7 @@
             <p class="textTable" th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getName()}"></p>
         </td>
         <td>
-            <p id="textTableNumbers" th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getPowerLevel()}"></p>
+            <p th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getPowerLevel()}"></p>
         </td>
         <td  th:text="*{getTotalScore()}"></td>
         <td>

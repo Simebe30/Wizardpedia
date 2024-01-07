@@ -1,9 +1,7 @@
 /*.headerContainer #mainHeader {*/
 /*    padding: 0.5em;*/
 /*}*/
-body{
-    font-family: pt Serif, serif;
-}
+
 button {
     display: flex;
     align-items: center;
@@ -27,27 +25,20 @@ button:hover {
     padding: 6px 12px;
     font-size: 15px;
 }
-
-p, h1{
+.textNotTable{
     margin: auto;
     text-align: center;
     font-family: pt Serif, serif;
+    padding: 3.5em;
     font-size: 35px;
 }
-p{
-    padding: 4em;
-}
-.textTable{
-    font-size: 20px;
-    text-align: left;
-    padding: 20px;
-}
-#textTableNumbers{
-    font-size: 20px;
-    padding: 20px;
-}
 
+.textTable{
+    text-align: left;
+}
 h1{
+    margin: auto;
+    text-align: center;
     font-size: 45px;
     padding: 0.5em;
 }
@@ -62,7 +53,6 @@ table{
 th, td {
     border: 1px solid white;
     padding: 20px;
-    padding-right: 25px;
     font-size: 20px;
     border-radius: 8px;
     text-align: center;
@@ -78,10 +68,7 @@ tr {
     background-color:  #81b0f3;
     color: black;
 }
-/*tr:hover {*/
-/*    background-color:  #81b0f3;*/
-/*    color: antiquewhite;*/
-/*}*/
+
 label {
     display: block;
     margin-bottom: 8px;
