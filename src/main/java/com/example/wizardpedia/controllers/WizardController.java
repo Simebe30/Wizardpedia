@@ -25,18 +25,13 @@ public class WizardController {
         return "index";
     }
 
-    //get que busca segun el numero que le hemos introducido al searchbar, como escribimos manualmente y lo queremos conectar al controller con html se escribe requestparam
-    //al terminar de buscar te redirige al get de abajo donde se busca en el localhost
     @GetMapping("/search")
     public String search(@RequestParam String searchTerm, @RequestParam String searchType) {
         if ("wizards".equals(searchType)) {
             return "redirect:/wizard/" + searchTerm;
         } else if ("items".equals(searchType)) {
-            // Realizar búsqueda de items y redirigir a /items/list/
-            // ...
-            return "redirect:/items/list/" + searchTerm;
+            return "redirect:/item/" + searchTerm;
         } else {
-            // Manejar un tipo de búsqueda no válido
             return "redirect:/error";
         }
     }

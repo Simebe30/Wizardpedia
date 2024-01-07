@@ -36,7 +36,7 @@
                 <button> Delete</button>
             </form>
         </td>
-        <td th:if="${itemStat.first}" th:text="*{getWizard().getName()}"></td>
+<!--        <td th:if="${itemStat.first}" th:text="*{getWizard().getName()}"></td>-->
     </tr>
 <!--    <tr th:if="${items}" th:each="item, itemStat: ${items}" th:object="${item}">-->
 <!--        <td th:text="*{id}">-->
@@ -53,13 +53,13 @@
 <!--                <button> Update</button>-->
 <!--            </form>-->
 <!--        </td>-->
-        <td>
-            <form th:method="delete" th:action="@{/item/list/__${item.wizard.id}__/__${item.id}__}">
-                <button> Delete</button>
-            </form>
-        </td>
-        <td th:if="${itemStat.first}" th:text="*{getWizard().getName()}"></td>
-    </tr>
+<!--        <td>-->
+<!--            <form th:method="delete" th:action="@{/item/list/__${item.wizard.id}__/__${item.id}__}">-->
+<!--                <button> Delete</button>-->
+<!--            </form>-->
+<!--        </td>-->
+<!--        <td th:if="${itemStat.first}" th:text="*{getWizard().getName()}"></td>-->
+<!--    </tr>-->
 </table>
 </body>
 </html>

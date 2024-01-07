@@ -21,8 +21,8 @@ public class MagicalItemService {
         return magicalItem;
     }
 
-    public List<MagicalItem> getItemsByItemName(String itemName){
-        return magicalItemRepository.findMagicalItemsByNameContainingIgnoreCase(itemName);
+    public Optional<MagicalItem> getItemsByItemName(String itemName){
+        return magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
     }
 
     public MagicalItem addItem(String name, int powerLevel, Wizard wizard) {

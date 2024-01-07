@@ -13,7 +13,7 @@ public interface MagicalItemRepository extends JpaRepository<MagicalItem, Long> 
     List<MagicalItem> getMagicalItemsByWizardId(Long wizardId);
     MagicalItem findMagicalItemById(Long id);
 
-    List<MagicalItem> findMagicalItemsByNameContainingIgnoreCase(String name);
+    Optional<MagicalItem> findMagicalItemByNameContainingIgnoreCase(String name);
 
     List<MagicalItem> findMagicalItemsByWizardId(Long wizardId);
 

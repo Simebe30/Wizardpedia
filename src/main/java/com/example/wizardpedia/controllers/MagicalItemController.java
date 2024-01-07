@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/item")
@@ -20,26 +21,15 @@ public class MagicalItemController {
         this.wizardService = wizardService;
     }
 
-    @GetMapping("/search")
-    public String searchByItemName(String itemName) {
-        return "redirect:/item/list/" + itemName;
-    }
-
-    @GetMapping("/list/{itemName}")
-    public String getByItemName(@PathVariable String itemName, Model model) {
-        List<MagicalItem> items = magicalItemService.getItemsByItemName(itemName);
-        if (items.isEmpty()) {
-            return "redirect:/error";
-        } else if(items.size() == 1) {
-            MagicalItem item = items.get(0);
-
-            model.addAttribute("item", item);
-
-            return "redirect:/list/" + item.getWizard().getName() + "/" + item.getId();
-        }else{
-            model.addAttribute("items", items);
-            return "listLinks";
+    @GetMapping("/{itemName}")
+    public String getIndividualItemByName(@PathVariable String itemName, Model model) {
+        Optional<MagicalItem> maybeItem = magicalItemService.getItemsByItemName(itemName);
+        if (maybeItem.isPresent()) {
+            model.addAttribute("item", maybeItem.get());
+            return "itemDetails";
         }
+        return "redirect:/error";
+
     }
 
     @GetMapping("/list/{wizardId}/{itemId}")
