@@ -11,7 +11,7 @@
     <div class="search-form-container">
     <form th:action="@{/wizard/search}" method="get">
         <label>
-            <input type="text" name="wizardName" required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
+            <input type="text" name="wizardName"  placeholder="search..." required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
         </label>
         <button type="submit" >Search</button>
     </form>
@@ -29,7 +29,6 @@
 <h1> Our Wizards </h1>
 <table>
     <tr>
-        <th> ID</th>
         <th> Wizards</th>
         <th> Magical items</th>
         <th> Power </th>
@@ -38,7 +37,6 @@
         <th>Update wizard</th>
     </tr>
     <tr th:each="wizard: ${wizards}" th:object="${wizard}">
-        <td th:text="*{id}">
         <td th:text="*{name}">
         <td>
             <p class="textTable" th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getName()}"></p>

@@ -16,9 +16,6 @@ public class WizardService {
     @Autowired
     private WizardRepository wizardRepository;
 
-    @Autowired
-    private MagicalItemRepository magicalItemRepository;
-
     public WizardService(WizardRepository wizardRepository) {
         this.wizardRepository = wizardRepository;
     }
@@ -60,8 +57,7 @@ public class WizardService {
          return true;
     }
 
-    public Optional<Wizard> getByName(String name){
-        return wizardRepository.findWizardByNameContainingIgnoreCase(name);
-//        return magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(name);
+    public List<Wizard> getByName(String name){
+        return wizardRepository.findWizardsByNameContainingIgnoreCase(name);
     }
 }

@@ -12,19 +12,11 @@
         <th> ID</th>
         <th> Wizard name</th>
         <th> Age</th>
-        <th> Magical items</th>
-        <th> Total power </th>
     </tr>
     <tr th:object="${wizard}">
         <td th:text="*{id}">
         <td th:text="*{name}">
         <td th:text="*{age}">
-<!--        <td>-->
-<!--            <ul>-->
-<!--                <li th:each="magicalItem: ${wizard.getMagicalItems()}" th:text="${magicalItem.getName()}"></li>-->
-<!--            </ul>-->
-<!--        </td>-->
-<!--        <td th:text="*{getTotalScore()}"></td>-->
     </tr>
 </table>
 </body>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,12 +35,16 @@ public class WizardController {
     //get que busca wizard arriba en el local host (por eso se necesita @PathVariable)
     @GetMapping("/{wizardName}")
     public String getWizardById(@PathVariable(name = "wizardName") String wizardName, Model model){
-        Optional<Wizard> maybeWizard = wizardService.getByName(wizardName);
-        if (maybeWizard.isPresent()) {
-            model.addAttribute("wizard", maybeWizard.get());
-            return "wizardDetails";
-        } else {
+        List<Wizard> wizards = wizardService.getByName(wizardName);
+
+        if (wizards.isEmpty()) {
             return "redirect:/error";
+        }else if(wizards.size() == 1){
+            model.addAttribute("wizard", wizards.get(0));
+            return "wizardDetails";
+        }else {
+            model.addAttribute("wizards", wizards);
+            return "listLinks";
         }
     }
 
