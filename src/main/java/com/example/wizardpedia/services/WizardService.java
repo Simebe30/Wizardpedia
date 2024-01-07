@@ -1,6 +1,8 @@
 package com.example.wizardpedia.services;
 
+import com.example.wizardpedia.Models.MagicalItem;
 import com.example.wizardpedia.Models.Wizard;
+import com.example.wizardpedia.repositories.MagicalItemRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class WizardService {
 
     @Autowired
     private WizardRepository wizardRepository;
+
+    @Autowired
+    private MagicalItemRepository magicalItemRepository;
 
     public WizardService(WizardRepository wizardRepository) {
         this.wizardRepository = wizardRepository;
@@ -53,5 +58,10 @@ public class WizardService {
         wizard.get().setAge(age);
          wizardRepository.save(wizard.get());
          return true;
+    }
+
+    public Optional<Wizard> getByName(String name){
+        return wizardRepository.findWizardByNameContainingIgnoreCase(name);
+//        return magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(name);
     }
 }

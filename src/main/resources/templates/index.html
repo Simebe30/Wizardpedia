@@ -9,12 +9,12 @@
 <header th:id="mainHeader">
     <h1 th:fragment="headerFragment" class="headerContainer">
     <div class="search-form-container">
-<!--    <form th:action="@{/wizard/search}" method="get">-->
-<!--        <label>Get wizard details, please enter Wizard ID:-->
-<!--            <input type="number" name="id" required th:min="1" >&lt;!&ndash;NAME &#45;&#45;compueba si el RequestParameter y el name son iguales&ndash;&gt;-->
-<!--        </label>-->
-<!--        <button type="submit" >Search</button>-->
-<!--    </form>-->
+    <form th:action="@{/wizard/search}" method="get">
+        <label>
+            <input type="text" name="wizardName" required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
+        </label>
+        <button type="submit" >Search</button>
+    </form>
 <!--    <form th:action="@{/item/search}" method="get">-->
 <!--        <label> Get wizard items, please enter Wizard ID:-->
 <!--            <input th:type="number" name="wizardId" required min="1" th:max="${wizards.size()}">-->
