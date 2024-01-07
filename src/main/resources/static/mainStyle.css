@@ -1,3 +1,9 @@
+/*.headerContainer #mainHeader {*/
+/*    padding: 0.5em;*/
+/*}*/
+body{
+    font-family: pt Serif, serif;
+}
 button {
     display: flex;
     align-items: center;
@@ -17,10 +23,67 @@ button:hover {
     background-color: #4f46c7;
 }
 
-p{
+.tableButton{
+    padding: 6px 12px;
+    font-size: 15px;
+}
+
+p, h1{
     margin: auto;
-    padding: 4em;
     text-align: center;
     font-family: pt Serif, serif;
     font-size: 35px;
+}
+p{
+    padding: 4em;
+}
+h1{
+    font-size: 45px;
+    padding: 0.5em;
+}
+table{
+    margin: auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-collapse: separate;
+}
+th, td {
+    border: 1px solid white;
+    padding: 20px;
+    padding-right: 25px;
+    font-size: 20px;
+    border-radius: 8px;
+    /*text-align: left;*/
+}
+
+th {
+    background-color: #4946cc;
+    color: antiquewhite;
+
+}
+
+tr {
+    background-color:  #81b0f3;
+    color: black;
+}
+/*tr:hover {*/
+/*    background-color:  #81b0f3;*/
+/*    color: antiquewhite;*/
+/*}*/
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
