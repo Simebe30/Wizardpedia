@@ -37,6 +37,16 @@ p, h1{
 p{
     padding: 4em;
 }
+.textTable{
+    font-size: 20px;
+    text-align: left;
+    padding: 20px;
+}
+#textTableNumbers{
+    font-size: 20px;
+    padding: 20px;
+}
+
 h1{
     font-size: 45px;
     padding: 0.5em;
@@ -55,7 +65,7 @@ th, td {
     padding-right: 25px;
     font-size: 20px;
     border-radius: 8px;
-    /*text-align: left;*/
+    text-align: center;
 }
 
 th {

@@ -41,16 +41,12 @@
         <td th:text="*{id}">
         <td th:text="*{name}">
         <td>
-            <ul>
-                <li th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getName()}"></li>
-            </ul>
+            <p class="textTable" th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getName()}"></p>
         </td>
         <td>
-            <ul>
-                <li th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getPowerLevel()}"></li>
-            </ul>
+            <p id="textTableNumbers" th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getPowerLevel()}"></p>
         </td>
-        <td th:text="*{getTotalScore()}"></td>
+        <td  th:text="*{getTotalScore()}"></td>
         <td>
             <form th:method="delete" th:action="@{/wizard/list/__${wizard.id}__}">
             <button class="tableButton"> delete</button>
