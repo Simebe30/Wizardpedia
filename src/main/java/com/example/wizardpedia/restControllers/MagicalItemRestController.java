@@ -28,7 +28,7 @@ public class MagicalItemRestController {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchByWizardId(@RequestParam Long wizardId){
-        List<MagicalItem> items =magService.getItemsbyWizId(wizardId);
+        List<MagicalItem> items =magService.getItemsByWizId(wizardId);
         if(items.isEmpty()){
            return ResponseEntity.notFound().build();
         }else{

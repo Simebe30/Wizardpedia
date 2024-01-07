@@ -20,8 +20,9 @@ public class MagicalItemService {
         magicalItemRepository.save(magicalItem);
         return magicalItem;
     }
-    public List<MagicalItem> getItemsbyWizId(Long wizardId){
-        return magicalItemRepository.getMagicalItemsByWizardId(wizardId);
+
+    public List<MagicalItem> getItemsByItemName(String itemName){
+        return magicalItemRepository.findMagicalItemsByNameContainingIgnoreCase(itemName);
     }
 
     public MagicalItem addItem(String name, int powerLevel, Wizard wizard) {
@@ -53,5 +54,13 @@ public class MagicalItemService {
         magicalItem.setPowerLevel(powerLevel);
         magicalItemRepository.save(magicalItem);
         return true;
+    }
+
+    public Optional<MagicalItem> getItemById(Long itemId) {
+        return magicalItemRepository.findById(itemId);
+    }
+
+    public List<MagicalItem> getItemsByWizId(Long wizardId){
+        return magicalItemRepository.findMagicalItemsByWizardId(wizardId);
     }
 }

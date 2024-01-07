@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>searching..</title>
 </head>
 <body>
 <div th:if="wizards" th:each="wizard : ${wizards}" th:object="${wizard}">
     <p> Wizard name:
         <a th:text="*{name}" th:href="@{/wizard/__${wizard.name}__}"></a>
+    </p>
+</div>
+<div th:if="items" th:each="item : ${items}" th:object="${item}">
+    <p> Magical item name:
+        <a th:text="*{name}" th:href="@{/wizard/__${wizard.name}__}"></a>
+         Wizard name: <span th:text="*{wizard.name}"></span>
     </p>
 </div>
 </body>

@@ -11,7 +11,13 @@
     <div class="search-form-container">
     <form th:action="@{/wizard/search}" method="get">
         <label>
-            <input type="text" name="wizardName"  placeholder="search..." required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
+            <input type="text" name="searchTerm"  placeholder="search..." required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
+        </label>
+        <label>
+            <select name="searchType">
+                <option value="wizards">Wizards</option>
+                <option value="items">Items</option>
+            </select>
         </label>
         <button type="submit" >Search</button>
     </form>

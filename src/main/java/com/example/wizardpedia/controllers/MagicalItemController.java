@@ -21,20 +21,32 @@ public class MagicalItemController {
     }
 
     @GetMapping("/search")
-    public String searchByWizardId(@RequestParam Long wizardId) {
-        return "redirect:/item/list/" + wizardId;
+    public String searchByItemName(String itemName) {
+        return "redirect:/item/list/" + itemName;
     }
 
-    @GetMapping("/list/{wizardId}")
-    public String getItemByWizardId(@PathVariable Long wizardId, Model model) {
-        List<MagicalItem> items = magicalItemService.getItemsbyWizId(wizardId);
+    @GetMapping("/list/{itemName}")
+    public String getByItemName(@PathVariable String itemName, Model model) {
+        List<MagicalItem> items = magicalItemService.getItemsByItemName(itemName);
         if (items.isEmpty()) {
             return "redirect:/error";
-        } else {
+        } else if(items.size() == 1) {
+            MagicalItem item = items.get(0);
+
+            model.addAttribute("item", item);
+
+            return "redirect:/list/" + item.getWizard().getName() + "/" + item.getId();
+        }else{
             model.addAttribute("items", items);
-            return "itemDetails";
+            return "listLinks";
         }
     }
+
+    @GetMapping("/list/{wizardId}/{itemId}")
+    public String getItemDetails(){
+        return "itemDetails";
+    }
+
 
     @GetMapping("/add")
     public String getAddItem(Model model) {
@@ -49,18 +61,18 @@ public class MagicalItemController {
         return "redirect:/wizard/list";
     }
 
-    @PutMapping("/list/{wizardId}/{id}")
-    public String updateItem(@PathVariable Long wizardId,
-                             @PathVariable Long id,
+    @PutMapping("/list/{wizardName}/{itemId}")
+    public String updateItem(@PathVariable String wizardName,
+                             @PathVariable Long itemId,
                              MagicalItem magicalItem){
 
-        magicalItemService.updateMagicalItem(id, magicalItem.getName(), magicalItem.getPowerLevel());
-        return "redirect:/item/list/" + wizardId;
+        magicalItemService.updateMagicalItem(itemId, magicalItem.getName(), magicalItem.getPowerLevel());
+        return "redirect:/item/list/" + wizardName + "/" + itemId;
     }
 
-    @DeleteMapping("/list/{wizardId}/{id}")
-    public String deleteItem(@PathVariable Long wizardId, @PathVariable Long id){
-        magicalItemService.delete(id);
+    @DeleteMapping("/list/{wizardId}/{itemId}")
+    public String deleteItem(@PathVariable String wizardId, @PathVariable Long itemId){
+        magicalItemService.delete(itemId);
         return "redirect:/item/list/" + wizardId;
 
     }
