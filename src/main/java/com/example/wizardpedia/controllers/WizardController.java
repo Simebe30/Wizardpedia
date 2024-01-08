@@ -35,7 +35,6 @@ public class WizardController {
             return "redirect:/error";
         }
     }
-    //get que busca wizard arriba en el local host (por eso se necesita @PathVariable)
     @GetMapping("/{wizardName}")
     public String getWizardById(@PathVariable(name = "wizardName") String wizardName, Model model){
         List<Wizard> wizards = wizardService.getByName(wizardName);

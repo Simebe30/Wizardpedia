@@ -26,14 +26,19 @@ public class MagicalItemController {
         Optional<MagicalItem> maybeItem = magicalItemService.getItemsByItemName(itemName);
         if (maybeItem.isPresent()) {
             model.addAttribute("item", maybeItem.get());
-            return "itemDetails";
+            return "individualItemsDetails";
         }
         return "redirect:/error";
 
     }
 
-    @GetMapping("/list/{wizardId}/{itemId}")
-    public String getItemDetails(){
+    @GetMapping("/list/{wizardId}")
+    public String getItemsDetails(@PathVariable Long wizardId, Model model){
+        List<MagicalItem> items = magicalItemService.getItemsByWizId(wizardId);
+        if (items.isEmpty()) {
+            return "redirect:/error";
+        }
+        model.addAttribute("items", items);
         return "itemDetails";
     }
 

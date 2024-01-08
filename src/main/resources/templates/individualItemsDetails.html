@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
 </head>
 <body>
+<h1> <a th:href="@{/wizard/list}">Magical item information </a></h1>
 <table>
     <tr>
         <th> Item ID</th>
@@ -14,11 +16,9 @@
         <th> Delete</th>
         <th> Wizard name</th>
     </tr>
-    <tr th:each="item, itemStat: ${items}" th:object="${item}">
+    <tr  th:object="${item}">
         <td th:text="*{id}">
         <td th:text="*{name}">
-            <a th:text="*{name}" th:href="@{/item/list/__${item.name}__}"></a>
-        </td>
         <td th:text="*{getPowerLevel()}">
         <td>
             <form th:method="put" th:action="@{/item/list/__${item.wizard.id}__/__${item.id}__}">
@@ -32,12 +32,12 @@
             </form>
         </td>
         <td>
-            <form th:method="delete" th:action="@{/item/list/__${item.wizard.id}__/__${item.id}__}">
+            <form th:method="delete" th:action="@{/wizard/__${item.wizard.name}__}">
                 <button> Delete</button>
             </form>
         </td>
         <td>
-            <a th:if="${itemStat.first}" th:text="*{getWizard().getName()}" th:href="@{/wizard/__${item.wizard.name}__}"></a>
+            <a  th:text="*{getWizard().getName()}" th:href="@{/wizard/__${item.wizard.name}__}"></a>
         </td>
     </tr>
 </table>
