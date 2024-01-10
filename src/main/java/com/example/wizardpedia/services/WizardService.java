@@ -1,23 +1,23 @@
 package com.example.wizardpedia.services;
 
-import com.example.wizardpedia.Models.MagicalItem;
 import com.example.wizardpedia.Models.Wizard;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class WizardService {
 
-    @Autowired
-    private WizardRepository wizardRepository;
+    private final WizardRepository wizardRepository;
+    private final MagicalItemRepository magicalItemRepository;
 
-    public WizardService(WizardRepository wizardRepository) {
+    public WizardService(WizardRepository wizardRepository, MagicalItemRepository magicalItemRepository) {
         this.wizardRepository = wizardRepository;
+        this.magicalItemRepository = magicalItemRepository;
     }
 
     public List<Wizard> getAllWizards(){
@@ -58,6 +58,7 @@ public class WizardService {
     }
 
     public List<Wizard> getByName(String name){
-        return wizardRepository.findWizardsByNameContainingIgnoreCase(name);
+        return new ArrayList<>(wizardRepository.findWizardsByNameContainingIgnoreCase(name));
+
     }
 }

@@ -6,6 +6,7 @@ import com.example.wizardpedia.repositories.MagicalItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,12 @@ public class MagicalItemService {
         return magicalItem;
     }
 
-    public Optional<MagicalItem> getItemsByItemName(String itemName){
-        return magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
+    public List<MagicalItem> getItemsByName(String itemName){
+        List<MagicalItem> magicalItem =  magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
+        if(magicalItem.isEmpty() || magicalItem == null){
+            return new ArrayList<>();
+        }
+        return magicalItem;
     }
 
     public MagicalItem addItem(String name, int powerLevel, Wizard wizard) {

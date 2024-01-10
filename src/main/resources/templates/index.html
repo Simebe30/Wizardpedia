@@ -11,22 +11,11 @@
     <div class="search-form-container">
     <form th:action="@{/wizard/search}" method="get">
         <label>
-            <input type="text" name="searchTerm"  placeholder="search..." required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
-        </label>
-        <label>
-            <select name="searchType">
-                <option value="wizards">Wizards</option>
-                <option value="items">Items</option>
-            </select>
+            <input type="text" name="searchInput"  placeholder="search..." required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
         </label>
         <button type="submit" >Search</button>
     </form>
-<!--    <form th:action="@{/item/search}" method="get">-->
-<!--        <label> Get wizard items, please enter Wizard ID:-->
-<!--            <input th:type="number" name="wizardId" required min="1" th:max="${wizards.size()}">-->
-<!--            <button type="submit">Search</button>-->
-<!--        </label>-->
-<!--    </form>-->
+
     </div>
     <a th:href="@{/wizard/list}"> Wizardpedia </a>
 </h1>

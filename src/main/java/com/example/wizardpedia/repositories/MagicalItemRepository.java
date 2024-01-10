@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface MagicalItemRepository extends JpaRepository<MagicalItem, Long> {
@@ -13,9 +12,10 @@ public interface MagicalItemRepository extends JpaRepository<MagicalItem, Long> 
     List<MagicalItem> getMagicalItemsByWizardId(Long wizardId);
     MagicalItem findMagicalItemById(Long id);
 
-    Optional<MagicalItem> findMagicalItemByNameContainingIgnoreCase(String name);
 
     List<MagicalItem> findMagicalItemsByWizardId(Long wizardId);
+
+    List<MagicalItem> findMagicalItemByNameContainingIgnoreCase(String itemName);
 
 //    List<MagicalItem> findMagicalItemsByWizardName(String wizardName);
 

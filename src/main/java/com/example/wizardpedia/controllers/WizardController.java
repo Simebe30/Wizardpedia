@@ -2,6 +2,7 @@ package com.example.wizardpedia.controllers;
 
 import com.example.wizardpedia.Models.MagicalItem;
 import com.example.wizardpedia.Models.Wizard;
+import com.example.wizardpedia.services.MagicalItemService;
 import com.example.wizardpedia.services.WizardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/wizard")
@@ -17,6 +19,9 @@ public class WizardController {
 
     @Autowired
     private WizardService wizardService;
+
+    @Autowired
+    private MagicalItemService itemService;
 
 
     @GetMapping({"/list", "/list/"})
@@ -26,27 +31,37 @@ public class WizardController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam String searchTerm, @RequestParam String searchType) {
-        if ("wizards".equals(searchType)) {
-            return "redirect:/wizard/" + searchTerm;
-        } else if ("items".equals(searchType)) {
-            return "redirect:/item/" + searchTerm;
-        } else {
-            return "redirect:/error";
+    public String search(@RequestParam String searchInput, Model model) {
+        List<Wizard> maybeWizards = wizardService.getByName(searchInput);
+        List<MagicalItem> maybeItems = itemService.getItemsByName(searchInput);
+
+
+        if (maybeWizards != null && maybeItems != null) {
+            if(!maybeWizards.isEmpty()){
+                model.addAttribute("wizards", maybeWizards);
+            }else if (!maybeItems.isEmpty()){
+                model.addAttribute("items", maybeItems);
+            }
+            return "listLinks";
+        } else if (maybeWizards != null) {
+            return "redirect:/wizard/" + searchInput;
+        } else if (maybeItems != null) {
+            return "redirect:/item/" + searchInput;
+        } else{
+            throw new RuntimeException("the input doesn't exist");
         }
     }
     @GetMapping("/{wizardName}")
-    public String getWizardById(@PathVariable(name = "wizardName") String wizardName, Model model){
+    public String searchInput(@PathVariable(name = "wizardName") String wizardName, Model model){
         List<Wizard> wizards = wizardService.getByName(wizardName);
 
         if (wizards.isEmpty()) {
-            return "redirect:/error";
+            throw new RuntimeException("the Wizard list is empty");
         }else if(wizards.size() == 1){
             model.addAttribute("wizard", wizards.get(0));
             return "wizardDetails";
         }else {
-            model.addAttribute("wizards", wizards);
-            return "listLinks";
+          throw new RuntimeException("the Wizard doesn't exist");
         }
     }
 

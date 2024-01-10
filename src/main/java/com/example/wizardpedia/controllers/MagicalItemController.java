@@ -23,20 +23,23 @@ public class MagicalItemController {
 
     @GetMapping("/{itemName}")
     public String getIndividualItemByName(@PathVariable String itemName, Model model) {
-        Optional<MagicalItem> maybeItem = magicalItemService.getItemsByItemName(itemName);
-        if (maybeItem.isPresent()) {
-            model.addAttribute("item", maybeItem.get());
-            return "individualItemsDetails";
-        }
-        return "redirect:/error";
+        List<MagicalItem> items = magicalItemService.getItemsByName(itemName);
 
+        if (items.isEmpty()) {
+            throw new RuntimeException("the Wizard list is empty");
+        }else if(items.size() == 1){
+            model.addAttribute("wizard", items.get(0));
+            return "wizardDetails";
+        }else {
+            throw new RuntimeException("the item doesn't exist");
+        }
     }
 
     @GetMapping("/list/{wizardId}")
     public String getItemsDetails(@PathVariable Long wizardId, Model model){
         List<MagicalItem> items = magicalItemService.getItemsByWizId(wizardId);
         if (items.isEmpty()) {
-            return "redirect:/error";
+            throw new RuntimeException("the item list is empty");
         }
         model.addAttribute("items", items);
         return "itemDetails";
