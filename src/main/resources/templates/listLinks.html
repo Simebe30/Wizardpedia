@@ -12,7 +12,7 @@
 </div>
 <div th:if="items" th:each="item : ${items}" th:object="${item}">
     <p> Magical item name:
-        <a th:text="*{name}" th:href="@{/wizard/__${wizard.name}__}"></a>
+        <a th:text="*{name}" th:href="@{/item/list/__${item.name}__}"></a>
          Wizard name: <span th:text="*{wizard.name}"></span>
     </p>
 </div>

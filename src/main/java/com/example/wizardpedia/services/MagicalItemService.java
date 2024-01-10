@@ -24,7 +24,7 @@ public class MagicalItemService {
 
     public List<MagicalItem> getItemsByName(String itemName){
         List<MagicalItem> magicalItem =  magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
-        if(magicalItem.isEmpty() || magicalItem == null){
+        if(magicalItem.isEmpty()){
             return new ArrayList<>();
         }
         return magicalItem;

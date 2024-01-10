@@ -30,22 +30,19 @@ public class WizardController {
         return "index";
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String search(@RequestParam String searchInput, Model model) {
         List<Wizard> maybeWizards = wizardService.getByName(searchInput);
         List<MagicalItem> maybeItems = itemService.getItemsByName(searchInput);
 
 
-        if (maybeWizards != null && maybeItems != null) {
-            if(!maybeWizards.isEmpty()){
+        if (!maybeWizards.isEmpty() && !maybeItems.isEmpty()) {
                 model.addAttribute("wizards", maybeWizards);
-            }else if (!maybeItems.isEmpty()){
                 model.addAttribute("items", maybeItems);
-            }
             return "listLinks";
-        } else if (maybeWizards != null) {
+        } else if (maybeWizards.size() == 1) {
             return "redirect:/wizard/" + searchInput;
-        } else if (maybeItems != null) {
+        } else if (maybeItems.size() == 1) {
             return "redirect:/item/" + searchInput;
         } else{
             throw new RuntimeException("the input doesn't exist");

@@ -26,10 +26,10 @@ public class MagicalItemController {
         List<MagicalItem> items = magicalItemService.getItemsByName(itemName);
 
         if (items.isEmpty()) {
-            throw new RuntimeException("the Wizard list is empty");
+            throw new RuntimeException("the item list is empty");
         }else if(items.size() == 1){
-            model.addAttribute("wizard", items.get(0));
-            return "wizardDetails";
+            model.addAttribute("item", items.get(0));
+            return "individualItemsDetails";
         }else {
             throw new RuntimeException("the item doesn't exist");
         }

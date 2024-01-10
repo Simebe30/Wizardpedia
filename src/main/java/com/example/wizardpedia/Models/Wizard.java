@@ -29,11 +29,7 @@ public class Wizard {
         this.age = age;
     }
 
-    public Wizard(long id, String wizard2, int age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
+
 
     public void setId(Long id) {
         this.id = id;
