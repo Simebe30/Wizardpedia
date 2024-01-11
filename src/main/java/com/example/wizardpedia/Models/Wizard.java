@@ -17,6 +17,8 @@ public class Wizard {
 
     private int age;
 
+    private int coins;
+
     @OneToMany(mappedBy = "wizard", cascade = CascadeType.ALL)
     Set<MagicalItem> magicalItems = new HashSet<>();
 
@@ -27,6 +29,7 @@ public class Wizard {
     public Wizard(String name, int age) {
         this.name = name;
         this.age = age;
+        this.coins = 1000;
     }
 
 

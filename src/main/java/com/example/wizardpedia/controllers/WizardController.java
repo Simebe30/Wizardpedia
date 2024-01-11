@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class WizardController {
     }
 
     @PostMapping("/search")
-    public String search(@RequestParam String searchInput, Model model) {
+    public String search(@RequestParam String searchInput, Model model, RedirectAttributes re) {
         List<Wizard> maybeWizards = wizardService.getByName(searchInput);
         List<MagicalItem> maybeItems = itemService.getItemsByName(searchInput);
 
@@ -45,11 +46,12 @@ public class WizardController {
         } else if (maybeItems.size() == 1) {
             return "redirect:/item/" + searchInput;
         } else{
-            throw new RuntimeException("the input doesn't exist");
+            re.addFlashAttribute("error", "the input doesn't exist");
+            return "redirect:./list/";
         }
     }
     @GetMapping("/{wizardName}")
-    public String searchInput(@PathVariable(name = "wizardName") String wizardName, Model model){
+    public String searchInput(@PathVariable(name = "wizardName") String wizardName, Model model, RedirectAttributes re){
         List<Wizard> wizards = wizardService.getByName(wizardName);
 
         if (wizards.isEmpty()) {
@@ -58,7 +60,8 @@ public class WizardController {
             model.addAttribute("wizard", wizards.get(0));
             return "wizardDetails";
         }else {
-          throw new RuntimeException("the Wizard doesn't exist");
+            re.addFlashAttribute("error", "the Wizard doesn't exist");
+            return "index";
         }
     }
 

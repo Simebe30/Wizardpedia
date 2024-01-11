@@ -14,6 +14,8 @@ public class MagicalItem {
     private String name;
 
     private int powerLevel;
+    @ManyToMany
+    private Protective protectiveItem;
 
     @ManyToOne
     private Wizard wizard;
