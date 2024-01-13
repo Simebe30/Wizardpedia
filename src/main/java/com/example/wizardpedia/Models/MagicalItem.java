@@ -14,8 +14,10 @@ public class MagicalItem {
     private String name;
 
     private int powerLevel;
-    @ManyToMany
     private Protective protectiveItem;
+
+
+    private String offensiveItem;
 
     @ManyToOne
     private Wizard wizard;
