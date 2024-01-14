@@ -1,6 +1,7 @@
 package com.example.wizardpedia.controllers;
 
 import com.example.wizardpedia.Models.MagicalItem;
+import com.example.wizardpedia.Models.Protective;
 import com.example.wizardpedia.services.MagicalItemService;
 import com.example.wizardpedia.services.WizardService;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/item")
@@ -46,16 +46,16 @@ public class MagicalItemController {
     }
 
 
-    @GetMapping("/add")
+    @GetMapping("/shop")
     public String getAddItem(Model model) {
         model.addAttribute("wizards", wizardService.getAllWizards());
-
-        return "addItem";
+        model.addAttribute("protectives", Protective.values());
+        return "shopItem";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/shop")
     public String addItemSubmit(MagicalItem magicalItem) {
-        magicalItemService.addItem(magicalItem);
+        magicalItemService.shopItem(magicalItem);
         return "redirect:/wizard/list";
     }
 

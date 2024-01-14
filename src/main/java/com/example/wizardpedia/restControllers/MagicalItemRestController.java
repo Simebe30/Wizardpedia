@@ -56,7 +56,7 @@ public class MagicalItemRestController {
         //}
         item.get().setWizard(wizard.get());
         //Añadimos el item al service y lo nombramos addedItem
-        MagicalItem addedItem = magService.addItem(item.get());
+        MagicalItem addedItem = magService.shopItem(item.get());
         //creamos un MagicalItemDTO y le añadimos el nombre y el poder que le habiamos escrito en el requestBody
         return ResponseEntity.status(HttpStatus.CREATED).body(new MagicalItemDTO(addedItem));
     }

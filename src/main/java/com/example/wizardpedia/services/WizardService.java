@@ -13,11 +13,9 @@ import java.util.Optional;
 public class WizardService {
 
     private final WizardRepository wizardRepository;
-    private final MagicalItemRepository magicalItemRepository;
 
     public WizardService(WizardRepository wizardRepository, MagicalItemRepository magicalItemRepository) {
         this.wizardRepository = wizardRepository;
-        this.magicalItemRepository = magicalItemRepository;
     }
 
     public List<Wizard> getAllWizards(){

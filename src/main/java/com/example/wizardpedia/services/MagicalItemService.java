@@ -1,9 +1,7 @@
 package com.example.wizardpedia.services;
 
 import com.example.wizardpedia.Models.MagicalItem;
-import com.example.wizardpedia.Models.Wizard;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,11 +10,20 @@ import java.util.Optional;
 
 @Service
 public class MagicalItemService {
-    @Autowired
-    private MagicalItemRepository magicalItemRepository;
+
+    private final MagicalItemRepository magicalItemRepository;
+
+    public MagicalItemService(MagicalItemRepository magicalItemRepository) {
+        this.magicalItemRepository = magicalItemRepository;
+    }
 
 
-    public MagicalItem addItem(MagicalItem magicalItem){
+    public MagicalItem shopItem(MagicalItem magicalItem){
+
+        int wizardMoney = magicalItem.getWizard().getCoins();
+//        int itemPrice = magicalItem.getProtective().getPrice();
+
+//        magicalItem.getWizard().setCoins(wizardMoney - itemPrice);
 
         magicalItemRepository.save(magicalItem);
         return magicalItem;
@@ -28,14 +35,6 @@ public class MagicalItemService {
             return new ArrayList<>();
         }
         return magicalItem;
-    }
-
-    public MagicalItem addItem(String name, int powerLevel, Wizard wizard) {
-        return magicalItemRepository.save(new MagicalItem(name, powerLevel, wizard));
-    }
-
-    public Object addItem(String name, int powerLevel) {
-        return magicalItemRepository.save(new MagicalItem(name, powerLevel));
     }
 
     public boolean delete(Long id){
@@ -67,5 +66,11 @@ public class MagicalItemService {
 
     public List<MagicalItem> getItemsByWizId(Long wizardId){
         return magicalItemRepository.findMagicalItemsByWizardId(wizardId);
+    }
+
+    public int getTotalScore(){
+        return magicalItemRepository.findAll().stream()
+                .mapToInt(MagicalItem::getPowerLevel)
+                .sum();
     }
 }

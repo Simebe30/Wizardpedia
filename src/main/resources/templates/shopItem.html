@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styleAdd.css}">
+</head>
+<script>
+    function showForm(selectedOption) {
+        var protectiveForm = document.getElementById("protectiveForm");
+        var offensiveForm = document.getElementById("offensiveForm");
+
+        if (selectedOption === "protective") {
+            protectiveForm.style.display = "block";
+            offensiveForm.style.display = "none";
+        } else if (selectedOption === "offensive") {
+            protectiveForm.style.display = "none";
+            offensiveForm.style.display = "block";
+        }
+    }
+</script>
+
+<body>
+
+<label for="magicItemType">Select Magic Item Type:</label>
+<select id="magicItemType" onchange="showForm(this.value)">
+    <option value="protective">Protective Magical Item</option>
+    <option value="offensive">Offensive Magical Item</option>
+</select>
+
+<form id="protectiveForm" style="display: none;" th:action="@{/item/shop}" th:method="post">
+
+    <label for="protective">Select a Protective Item:
+        <select name="protective" id="protective">
+            <option th:each="item : ${protectives}" th:value="${item}" th:text="${item.displayName}"></option>
+        </select>
+    </label>
+
+    <label for="magicalItem">Give a name to the magical item:
+        <input type="text" id="magicalItem" name="protectiveItem.name" required>
+    </label>
+
+    <label> Select a Wizard:
+        <select th:name="wizard.id">
+            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
+        </select>
+    </label>
+
+    <button type="submit">Submit</button>
+
+</form>
+</body>
+</html>

@@ -9,15 +9,12 @@ import java.util.List;
 @Repository
 public interface MagicalItemRepository extends JpaRepository<MagicalItem, Long> {
 
-    List<MagicalItem> getMagicalItemsByWizardId(Long wizardId);
     MagicalItem findMagicalItemById(Long id);
-
 
     List<MagicalItem> findMagicalItemsByWizardId(Long wizardId);
 
     List<MagicalItem> findMagicalItemByNameContainingIgnoreCase(String itemName);
 
-//    List<MagicalItem> findMagicalItemsByWizardName(String wizardName);
 
 
 }

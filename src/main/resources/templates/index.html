@@ -12,7 +12,7 @@
     <p th:if="${error}" th:text="${error}">
     <form th:action="@{/wizard/search}" method="post">
         <label>
-            <input type="text" name="searchInput"  placeholder="search..." required ><!--NAME --compueba si el RequestParameter y el name son iguales-->
+            <input type="text" name="searchInput"  placeholder="search..." required >
         </label>
         <button type="submit" >Search</button>
     </form>
@@ -35,12 +35,12 @@
     <tr th:each="wizard: ${wizards}" th:object="${wizard}">
         <td th:text="*{name}">
         <td>
-            <p class="textTable" th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getName()}"></p>
+            <p class="textTable" th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.name}"></p>
         </td>
         <td>
-            <p th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.getPowerLevel()}"></p>
+            <p th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.powerLevel}"></p>
         </td>
-        <td  th:text="*{getTotalScore()}"></td>
+        <td  th:text="${totalScore}"></td>
         <td>
             <form th:method="delete" th:action="@{/wizard/list/__${wizard.id}__}">
             <button class="tableButton"> delete</button>
@@ -67,6 +67,6 @@
         <input type="submit" value="add" class="submit-button">
     </label>
 </form>
-<a th:href="@{/item/add}" class="submit-button"> Add item</a>
+<a th:href="@{/item/shop}"> Shop item</a>
 </body>
 </html>
