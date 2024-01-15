@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface WizardRepository extends JpaRepository<Wizard,Long> {
     List<Wizard> findWizardsByNameContainingIgnoreCase(String name);
 
+    Optional<Wizard> findWizardById(Long id);
+
 }

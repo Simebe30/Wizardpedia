@@ -15,14 +15,8 @@ public class MagicalItem {
 
     private int powerLevel;
 
-    private Protective protective;
-
-    private String offensive;
-
     @ManyToOne
     private Wizard wizard;
-
-
 
 
     public Long getId() {
@@ -52,22 +46,6 @@ public class MagicalItem {
         this.powerLevel = powerLevel;
     }
 
-    public Protective getProtective() {
-        return protective;
-    }
-
-    public void setProtective(Protective protective) {
-        this.protective = protective;
-    }
-
-    public String getOffensive() {
-        return offensive;
-    }
-
-    public void setOffensive(String offensive) {
-        this.offensive = offensive;
-    }
-
     public Wizard getWizard() {
         return wizard;
     }
@@ -75,6 +53,7 @@ public class MagicalItem {
     public void setWizard(Wizard wizard) {
         this.wizard = wizard;
     }
+
 }
 
 

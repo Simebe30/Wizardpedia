@@ -1,7 +1,9 @@
 package com.example.wizardpedia.services;
 
 import com.example.wizardpedia.Models.MagicalItem;
+import com.example.wizardpedia.Models.Wizard;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
+import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,21 +14,30 @@ import java.util.Optional;
 public class MagicalItemService {
 
     private final MagicalItemRepository magicalItemRepository;
+    private final WizardRepository wizardRepository;
 
-    public MagicalItemService(MagicalItemRepository magicalItemRepository) {
+    public MagicalItemService(MagicalItemRepository magicalItemRepository, WizardRepository wizardRepository) {
         this.magicalItemRepository = magicalItemRepository;
+        this.wizardRepository = wizardRepository;
     }
 
 
     public MagicalItem shopItem(MagicalItem magicalItem){
 
-        int wizardMoney = magicalItem.getWizard().getCoins();
-//        int itemPrice = magicalItem.getProtective().getPrice();
 
-//        magicalItem.getWizard().setCoins(wizardMoney - itemPrice);
+        Wizard wizard  = wizardRepository.findWizardById(magicalItem.getWizard().getId()).get();
+        int wizardMoney = wizard.getCoins();
+//        int itemPrice = protective.getPrice();
+//        int currentWizardMoney = wizardMoney - itemPrice;
+
+//        wizard.setCoins(currentWizardMoney);
 
         magicalItemRepository.save(magicalItem);
         return magicalItem;
+    }
+
+    public MagicalItem addItem(MagicalItem magicalItem){
+        return magicalItemRepository.save(magicalItem);
     }
 
     public List<MagicalItem> getItemsByName(String itemName){
