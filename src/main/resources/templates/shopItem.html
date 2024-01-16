@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Shop</title>
@@ -28,20 +28,28 @@
     <option value="offensive">Offensive Magical Item</option>
 </select>
 
-<form id="protectiveForm" style="display: none;" th:action="@{/item/shop}" th:method="post">
+<form id="protectiveForm" style="display: block;" th:action="@{/item/shop}" th:method="post">
 
-    <label for="protective">Select a Protective Item:
-        <select name="protective" id="protective">
+    <label>Select a Protective Item:
+        <select name="protectiveType">
             <option th:each="item : ${protectives}" th:value="${item}" th:text="${item.displayName}"></option>
         </select>
     </label>
 
-    <label for="magicalItem">Give a name to the magical item:
-        <input type="text" id="magicalItem" name="protectiveItem.name" required>
+    <label>Give a name to the magical item:
+        <input type="text" name="name" required>
     </label>
 
-    <label> Select a Wizard:
-        <select th:name="wizard.id">
+<!--    <label>Price:-->
+<!--        <input type="text" name="protectiveItem.price" required>-->
+<!--    </label>-->
+
+<!--    <label>Power Level:-->
+<!--        <input type="text" name="protectiveItem.powerLevel" required>-->
+<!--    </label>-->
+
+    <label>Select a Wizard:
+        <select name="wizard.id">
             <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
         </select>
     </label>
@@ -49,5 +57,6 @@
     <button type="submit">Submit</button>
 
 </form>
+
 </body>
 </html>
