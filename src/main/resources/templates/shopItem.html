@@ -25,7 +25,7 @@
     </label>
 
     <label>Select a Wizard:
-        <select name="wizardId">
+        <select onchange="updateWizardCoins(this.value)" name="wizardId">
             <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
         </select>
     </label>
@@ -56,8 +56,8 @@
     }
     function updateValue() {
 
-        // let itemTypeSelect = document.getElementById("itemType");
-        // let selectedItemType = itemTypeSelect.value;
+        let itemTypeSelect = document.getElementById("itemType");
+        let selectedItemType = itemTypeSelect.value;
 
         let itemPower, itemPrice;
 
@@ -88,6 +88,7 @@
         document.getElementById("itemPower").innerText = itemPower;
         document.getElementById("itemPrice").innerText = itemPrice;
     }
+
 
     document.addEventListener('DOMContentLoaded', function() {
 
