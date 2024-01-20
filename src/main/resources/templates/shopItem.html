@@ -35,9 +35,8 @@
 
 <p>Item Details:</p>
 <ul>
-    <li>Name: <span id="itemName"></span></li>
     <li>Power Level: <span id="itemPower"></span></li>
-    <li>Price: $<span id="itemPrice"></span></li>
+    <li>Price: <span id="itemPrice"></span> coins</li>
 </ul>
 
 
@@ -56,45 +55,42 @@
         }
     }
     function updateValue() {
-        // Get the selected item type
+
         let itemTypeSelect = document.getElementById("itemType");
         let selectedItemType = itemTypeSelect.value;
 
-        console.log('Selected Item Type:', selectedItemType);
-
-        let itemName, itemPower, itemPrice;
+        let itemPower, itemPrice;
 
         switch (selectedItemType) {
+            case "ARMOR":
+                itemPower = 110;
+                itemPrice = 100;
+                break;
             case "SHIELD":
-                itemName = "Shield";
-                itemPower = 10;
+                itemPower = 53;
                 itemPrice = 50;
                 break;
-            case "ARMOR":
-                itemName = "Armor";
-                itemPower = 20;
-                itemPrice = 100;
+            case "CLOAK":
+                itemPower = 32;
+                itemPrice = 30;
+                break;
+            case "AMULET":
+                itemPower = 15;
+                itemPrice = 20;
+                break;
+            case "RING":
+                itemPower = 3;
+                itemPrice = 5;
                 break;
 
             default:
-                itemName = "";
                 itemPower = 0;
                 itemPrice = 0;
         }
 
-        // Log details to the console
-        console.log('Item Name:', itemName);
-        console.log('Item Power:', itemPower);
-        console.log('Item Price:', itemPrice);
-
-        // Update the displayed details
-        document.getElementById("itemName").innerText = itemName;
         document.getElementById("itemPower").innerText = itemPower;
         document.getElementById("itemPrice").innerText = itemPrice;
     }
-
-    // Call the function on page load to set initial values
-
 
 </script>
 
