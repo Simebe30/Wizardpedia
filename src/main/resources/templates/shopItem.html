@@ -15,7 +15,7 @@
 
 <form id="protectiveForm" style="display: block;" th:action="@{/protective/shop}" th:method="post">
     <label>Select a Protective Item:
-        <select onchange="updateValue()" id="itemType" name="protective">
+        <select onchange="updateValue()"  id="itemType" name="protective">
             <option th:each="item : ${protectives}" th:value="${item}" th:text="${item.name}"></option>
         </select>
     </label>
@@ -56,8 +56,8 @@
     }
     function updateValue() {
 
-        let itemTypeSelect = document.getElementById("itemType");
-        let selectedItemType = itemTypeSelect.value;
+        // let itemTypeSelect = document.getElementById("itemType");
+        // let selectedItemType = itemTypeSelect.value;
 
         let itemPower, itemPrice;
 
@@ -83,15 +83,19 @@
                 itemPrice = 5;
                 break;
 
-            default:
-                itemPower = 0;
-                itemPrice = 0;
         }
 
         document.getElementById("itemPower").innerText = itemPower;
         document.getElementById("itemPrice").innerText = itemPrice;
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+
+        let itemTypeSelect = document.getElementById("itemType");
+        itemTypeSelect.value = itemTypeSelect.options[0].value;
+
+        updateValue();
+    });
 </script>
 
 
