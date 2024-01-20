@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 
 @Entity
-public class MagicalItem {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS )
+public abstract class MagicalItem {
 
 
     @Id
@@ -15,9 +16,27 @@ public class MagicalItem {
 
     private int powerLevel;
 
+    private int price;
+
     @ManyToOne
     private Wizard wizard;
 
+    public MagicalItem() {
+    }
+
+    public MagicalItem(Wizard wizard, String name, int powerLevel) {
+        this.wizard = wizard;
+        this.name = name;
+        this.powerLevel = powerLevel;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public Long getId() {
         return id;
@@ -25,9 +44,6 @@ public class MagicalItem {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public MagicalItem() {
     }
 
     public String getName() {
