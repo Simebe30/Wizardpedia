@@ -52,12 +52,10 @@ public class ProtectiveService implements MagicalItemService {
 
     @Override
     public MagicalItem addItem(MagicalItem magicalItem) {
-        if (magicalItem instanceof ProtectiveItem) {
-            ProtectiveItem protectiveItem = (ProtectiveItem) magicalItem;
+        if (magicalItem instanceof ProtectiveItem protectiveItem) {
             return protectiveRepository.save(protectiveItem);
         } else {
-            // Handle the case where magicalItem is not a ProtectiveItem
-            return null; // or throw an exception, depending on your design
+            return null;
         }
     }
 

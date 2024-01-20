@@ -29,6 +29,12 @@ public abstract class MagicalItem {
         this.name = name;
         this.powerLevel = powerLevel;
     }
+    public MagicalItem(Wizard wizard, String name, int powerLevel, int price) {
+        this.wizard = wizard;
+        this.name = name;
+        this.powerLevel = powerLevel;
+        this.price = price;
+    }
 
     public int getPrice() {
         return price;

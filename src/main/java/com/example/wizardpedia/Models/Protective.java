@@ -4,11 +4,11 @@ package com.example.wizardpedia.Models;
 
 public enum Protective {
 
-    ARMOR("Armor", 100, 80),
-    SHIELD("Shield", 50, 60),
-    CLOAK("Cloak", 30, 40),
-    AMULET("Amulet", 20, 30),
-    RING("Ring", 10, 5);
+    ARMOR("Armor", 100, 110),
+    SHIELD("Shield", 50, 53),
+    CLOAK("Cloak", 30, 32),
+    AMULET("Amulet", 20, 15),
+    RING("Ring", 5, 3);
 
     private String displayName;
     private int price;
