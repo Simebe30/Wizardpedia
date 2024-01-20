@@ -30,16 +30,18 @@
         </select>
     </label>
 
-
-<!--    <label>Price:-->
-<!--        <span id="priceInfo"  th:text="${protectiveItem.price}"></span>-->
-<!--    </label>-->
-
     <button type="submit">Submit</button>
 </form>
-<p id="itemPower">Power Level:
-</p>
-<script>
+
+<p>Item Details:</p>
+<ul>
+    <li>Name: <span id="itemName"></span></li>
+    <li>Power Level: <span id="itemPower"></span></li>
+    <li>Price: $<span id="itemPrice"></span></li>
+</ul>
+
+
+<script th:inline="javascript">
 
     function showForm(selectedOption) {
         let protectiveForm = document.getElementById("protectiveForm");
@@ -56,12 +58,39 @@
     function updateValue() {
         // Get the selected item type
         let itemTypeSelect = document.getElementById("itemType");
-        let selectedOption = itemTypeSelect.options[itemTypeSelect.selectedIndex];
-        let itemType = selectedOption.value;
+        let selectedItemType = itemTypeSelect.value;
 
-        // Update item details based on the selected option
-        document.getElementById("itemName").innerText = itemType.name;
-        document.getElementById("itemPower").innerText = itemType.powerLevel;
+        console.log('Selected Item Type:', selectedItemType);
+
+        let itemName, itemPower, itemPrice;
+
+        switch (selectedItemType) {
+            case "SHIELD":
+                itemName = "Shield";
+                itemPower = 10;
+                itemPrice = 50;
+                break;
+            case "ARMOR":
+                itemName = "Armor";
+                itemPower = 20;
+                itemPrice = 100;
+                break;
+
+            default:
+                itemName = "";
+                itemPower = 0;
+                itemPrice = 0;
+        }
+
+        // Log details to the console
+        console.log('Item Name:', itemName);
+        console.log('Item Power:', itemPower);
+        console.log('Item Price:', itemPrice);
+
+        // Update the displayed details
+        document.getElementById("itemName").innerText = itemName;
+        document.getElementById("itemPower").innerText = itemPower;
+        document.getElementById("itemPrice").innerText = itemPrice;
     }
 
     // Call the function on page load to set initial values
