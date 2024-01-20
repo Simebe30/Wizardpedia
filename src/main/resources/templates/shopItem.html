@@ -5,10 +5,45 @@
     <title>Shop</title>
     <link rel="stylesheet" type="text/css" th:href="@{/styleAdd.css}">
 </head>
+<body>
+
+<label for="magicItemType">Select Magic Item Type:</label>
+<select id="magicItemType" onchange="showForm(this.value)">
+    <option value="protective">Protective Magical Item</option>
+    <option value="offensive">Offensive Magical Item</option>
+</select>
+
+<form id="protectiveForm" style="display: block;" th:action="@{/protective/shop}" th:method="post">
+    <label>Select a Protective Item:
+        <select onchange="updateValue()" id="itemType" name="protective">
+            <option th:each="item : ${protectives}" th:value="${item}" th:text="${item.name}"></option>
+        </select>
+    </label>
+
+    <label>Give a name to the magical item:
+        <input type="text" name="displayName" required>
+    </label>
+
+    <label>Select a Wizard:
+        <select name="wizardId">
+            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
+        </select>
+    </label>
+
+
+<!--    <label>Price:-->
+<!--        <span id="priceInfo"  th:text="${protectiveItem.price}"></span>-->
+<!--    </label>-->
+
+    <button type="submit">Submit</button>
+</form>
+<p id="itemPower">Power Level:
+</p>
 <script>
+
     function showForm(selectedOption) {
-        var protectiveForm = document.getElementById("protectiveForm");
-        var offensiveForm = document.getElementById("offensiveForm");
+        let protectiveForm = document.getElementById("protectiveForm");
+        let offensiveForm = document.getElementById("offensiveForm");
 
         if (selectedOption === "protective") {
             protectiveForm.style.display = "block";
@@ -18,45 +53,22 @@
             offensiveForm.style.display = "block";
         }
     }
+    function updateValue() {
+        // Get the selected item type
+        let itemTypeSelect = document.getElementById("itemType");
+        let selectedOption = itemTypeSelect.options[itemTypeSelect.selectedIndex];
+        let itemType = selectedOption.value;
+
+        // Update item details based on the selected option
+        document.getElementById("itemName").innerText = itemType.name;
+        document.getElementById("itemPower").innerText = itemType.powerLevel;
+    }
+
+    // Call the function on page load to set initial values
+
+
 </script>
 
-<body>
-
-<label for="magicItemType">Select Magic Item Type:</label>
-<select id="magicItemType" onchange="showForm(this.value)">
-    <option value="protective">Protective Magical Item</option>
-    <option value="offensive">Offensive Magical Item</option>
-</select>
-
-<form id="protectiveForm" style="display: block;" th:action="@{/item/shop}" th:method="post">
-
-    <label>Select a Protective Item:
-        <select name="protectiveType">
-            <option th:each="item : ${protectives}" th:value="${item}" th:text="${item.displayName}"></option>
-        </select>
-    </label>
-
-    <label>Give a name to the magical item:
-        <input type="text" name="name" required>
-    </label>
-
-<!--    <label>Price:-->
-<!--        <input type="text" name="protectiveItem.price" required>-->
-<!--    </label>-->
-
-<!--    <label>Power Level:-->
-<!--        <input type="text" name="protectiveItem.powerLevel" required>-->
-<!--    </label>-->
-
-    <label>Select a Wizard:
-        <select name="wizard.id">
-            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
-        </select>
-    </label>
-
-    <button type="submit">Submit</button>
-
-</form>
 
 </body>
 </html>
