@@ -3,6 +3,7 @@ package com.example.wizardpedia.controllers;
 import com.example.wizardpedia.Models.MagicalItem;
 import com.example.wizardpedia.Models.Protective;
 import com.example.wizardpedia.services.MagicalItemService;
+import com.example.wizardpedia.services.ProtectiveService;
 import com.example.wizardpedia.services.WizardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,18 +48,12 @@ public class MagicalItemController {
 
 
     @GetMapping("/shop")
-    public String getAddItem(Model model) {
+    public String showShopForm(Model model) {
         model.addAttribute("wizards", wizardService.getAllWizards());
         model.addAttribute("protectives", Protective.values());
+
         return "shopItem";
     }
-
-    @PostMapping("/shop")
-    public String addItemSubmit(MagicalItem magicalItem) {
-        magicalItemService.shopItem(magicalItem);
-        return "redirect:/wizard/list";
-    }
-
     @PutMapping("/list/{wizardName}/{itemId}")
     public String updateItem(@PathVariable String wizardName,
                              @PathVariable Long itemId,
