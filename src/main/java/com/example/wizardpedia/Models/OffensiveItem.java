@@ -6,8 +6,11 @@ import jakarta.persistence.Entity;
 @Entity
 public class OffensiveItem extends MagicalItem {
 
-    private String offensiveType;
+    public OffensiveItem(Wizard wizard, String name, int powerLever) {
+        super(wizard,name, powerLever);
+    }
 
     public OffensiveItem() {
+
     }
 }
