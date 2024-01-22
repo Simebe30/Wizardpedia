@@ -9,11 +9,10 @@ public class ProtectiveItem extends MagicalItem{
     @Enumerated(EnumType.STRING)
     private Protective protectiveType;
 
-    public ProtectiveItem(Wizard wizard, String name, int powerLever, Protective protectiveType) {
-        super(wizard,name, powerLever);
+    public ProtectiveItem(Wizard wizard, Protective protectiveType) {
+        super(wizard, protectiveType.getDisplayName(), protectiveType.getPowerLevel(), protectiveType.getPrice());
         this.protectiveType = protectiveType;
     }
-
     public ProtectiveItem() {
 
     }

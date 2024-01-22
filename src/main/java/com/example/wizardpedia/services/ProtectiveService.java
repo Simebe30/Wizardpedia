@@ -8,12 +8,14 @@ import com.example.wizardpedia.repositories.MagicalItemRepository;
 import com.example.wizardpedia.repositories.ProtectiveRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Primary
 @Service
 public class ProtectiveService implements MagicalItemService {
 
@@ -36,19 +38,19 @@ public class ProtectiveService implements MagicalItemService {
         int wizardMoney = wizard.getCoins();
         int itemPrice = protective.getPrice();
         int currentWizardMoney = wizardMoney - itemPrice;
-        String itemName = protective.name().toLowerCase() + " the " + protective.getDisplayName().toLowerCase();
-
         wizard.setCoins(currentWizardMoney);
 
-        ProtectiveItem protectiveItem = new ProtectiveItem(wizard, itemName, protective.getPowerLevel(), protective);
-        protectiveRepository.save(protectiveItem);
-        return protectiveItem;
+        protective.setDisplayName(protective.name().toLowerCase() + " the " + protective.getDisplayName().toLowerCase());
+
+
+        return protectiveRepository.save(new ProtectiveItem(wizard, protective));
     }
 
     @Override
-    public MagicalItem shopItem() {
+    public MagicalItem shopItem(Long wizardId) {
         return null;
     }
+
 
     @Override
     public MagicalItem addItem(MagicalItem magicalItem) {

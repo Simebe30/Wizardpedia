@@ -22,7 +22,7 @@ public class ProtectiveController {
 
 
     @PostMapping("/shop")
-    public String processShopForm( @ModelAttribute Protective protective, @RequestParam Long wizardId) {
+    public String processShopFormProtective(@ModelAttribute Protective protective, @RequestParam Long wizardId) {
         protectiveService.shopItem(protective, wizardId);
         return "redirect:/wizard/list";
     }
