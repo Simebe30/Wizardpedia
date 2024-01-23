@@ -1,7 +1,9 @@
 package com.example.wizardpedia.services;
 
 import com.example.wizardpedia.Models.*;
+import com.example.wizardpedia.repositories.MagicalItemRepository;
 import com.example.wizardpedia.repositories.OffensiveRepository;
+import com.example.wizardpedia.repositories.ProtectiveRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,68 +13,30 @@ import java.util.Random;
 import java.util.Set;
 
 @Service
-public class OffensiveService implements MagicalItemService{
+public class OffensiveService{
 
-    private final WizardRepository wizardRepository;
-    private final OffensiveRepository offensiveRepository;
+    private final MagicalItemService magicalItemService;
+
+    private final OffensiveRepository offensiveRepo;
+    private final WizardRepository wizardRepo;
 
     @Autowired
-    public OffensiveService(WizardRepository wizardRepository, OffensiveRepository offensiveRepository) {
-        super();
-        this.wizardRepository = wizardRepository;
-        this.offensiveRepository = offensiveRepository;
+    public OffensiveService(MagicalItemRepository magicalItemRepo, WizardRepository wizardRepo,  OffensiveRepository offensiveRepo) {
+        this.magicalItemService = new MagicalItemService(magicalItemRepo);
+        this.offensiveRepo = offensiveRepo;
+        this.wizardRepo = wizardRepo;
     }
 
-    @Override
-    public ProtectiveItem shopItem(Protective protective, Long wizardId) {
-        return null;
-    }
-
-
-    @Override
     public MagicalItem shopItem(Long wizardId) {
-        Wizard wizard = wizardRepository.findWizardById(wizardId).get();
-
-        List<OffensiveItem> items = offensiveRepository.findAll();
+        Wizard wizard = wizardRepo.findWizardById(wizardId).get();
 
         Random random = new Random();
-        OffensiveItem item = items.get(random.nextInt(items.size()));
-        Set<MagicalItem> offensiveItems = wizard.getMagicalItems();
-        offensiveItems.add(item);
-        wizard.setCoins(wizard.getCoins() - item.getPrice());
+        List<Offensive> items = List.of(Offensive.values());
+        Offensive item = items.get(random.nextInt(items.size()));
 
-        wizardRepository.save(wizard);
-        offensiveRepository.save(item);
-        return item;
-    }
+        wizard.setCoins(wizard.getCoins() - 200);
 
-    @Override
-    public MagicalItem addItem(MagicalItem magicalItem) {
-        return null;
-    }
-
-    @Override
-    public List<MagicalItem> getItemsByName(String itemName) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
-    }
-
-    @Override
-    public boolean updateMagicalItem(Long id, String name, int powerLevel) {
-        return false;
-    }
-
-    @Override
-    public List<MagicalItem> getItemsByWizId(Long wizardId) {
-        return null;
-    }
-
-
-    public int getTotalScore() {
-        return 0;
+        wizardRepo.save(wizard);
+        return offensiveRepo.save(new OffensiveItem(wizard, item));
     }
 }

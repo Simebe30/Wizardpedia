@@ -29,6 +29,7 @@
         <th> Magical items</th>
         <th> Power </th>
         <th> Total power </th>
+        <th> Treasure </th>
         <th>Delete wizard</th>
         <th>Update wizard</th>
     </tr>
@@ -40,7 +41,11 @@
         <td>
             <p th:each="magicalItem : ${wizard.getMagicalItems()}" th:text="${magicalItem.powerLevel}"></p>
         </td>
-        <td  th:text="${totalScore}"></td>
+        <td  th:text="*{getTotalScore()}"></td>
+        <td>
+            <p th:text="*{getCoins()} + ' coins' "></p>
+        </td>
+
         <td>
             <form th:method="delete" th:action="@{/wizard/list/__${wizard.id}__}">
             <button class="tableButton"> delete</button>

@@ -28,7 +28,6 @@ public class WizardController {
     @GetMapping({"/list", "/list/"})
     public String index(Model model){
         model.addAttribute("wizards", wizardService.getAllWizards());
-        model.addAttribute("totalScore", itemService.getTotalScore());
         return "index";
     }
 

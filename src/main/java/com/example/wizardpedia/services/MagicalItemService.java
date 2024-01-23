@@ -2,26 +2,57 @@ package com.example.wizardpedia.services;
 
 import com.example.wizardpedia.Models.*;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
+import com.example.wizardpedia.repositories.ProtectiveRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public interface MagicalItemService {
+@Service
+public class MagicalItemService {
+    private final MagicalItemRepository magicalItemRepository;
 
-//    ProtectiveItem shopItem(Protective protective, Wizard wizard);
+    public MagicalItemService(MagicalItemRepository magicalItemRepository) {
+        this.magicalItemRepository = magicalItemRepository;
+    }
 
-    ProtectiveItem shopItem(Protective protective, Long wizardId);
+    public List<MagicalItem> getItemsByName(String itemName){
+        List<MagicalItem> magicalItem =  magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
+        if(magicalItem.isEmpty()){
+            return new ArrayList<>();
+        }
+        return magicalItem;
+    }
 
-    MagicalItem shopItem();
+    public boolean delete(Long id){
+        Optional<MagicalItem> maybeItem= magicalItemRepository.findById(id);
+        if(maybeItem.isEmpty()){
+            return false;
+        }else{
+            magicalItemRepository.deleteById(id);
+            return true;
+        }
+    }
 
-    MagicalItem addItem(MagicalItem magicalItem);
-    List<MagicalItem> getItemsByName(String itemName);
-    boolean delete(Long id);
-    boolean updateMagicalItem(Long id, String name, int powerLevel);
-    List<MagicalItem> getItemsByWizId(Long wizardId);
-    int getTotalScore();
+    public boolean updateMagicalItem(Long id, String name, int powerLevel){
+        Optional<MagicalItem> maybeItem= Optional.ofNullable(magicalItemRepository.findMagicalItemById(id));
+        if(maybeItem.isEmpty()){
+            return false;
+        }
+
+        MagicalItem magicalItem = maybeItem.get();
+        magicalItem.setName(name);
+        magicalItem.setPowerLevel(powerLevel);
+        magicalItemRepository.save(magicalItem);
+        return true;
+    }
+
+    public List<MagicalItem> getItemsByWizId(Long wizardId){
+        return magicalItemRepository.findMagicalItemsByWizardId(wizardId);
+    }
+
 }
 

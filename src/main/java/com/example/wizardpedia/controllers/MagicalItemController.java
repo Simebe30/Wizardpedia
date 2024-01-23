@@ -3,8 +3,8 @@ package com.example.wizardpedia.controllers;
 import com.example.wizardpedia.Models.MagicalItem;
 import com.example.wizardpedia.Models.Protective;
 import com.example.wizardpedia.services.MagicalItemService;
-import com.example.wizardpedia.services.ProtectiveService;
 import com.example.wizardpedia.services.WizardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,7 @@ public class MagicalItemController {
     private final MagicalItemService magicalItemService;
     private final WizardService wizardService;
 
+    @Autowired
     public MagicalItemController(MagicalItemService magicalItemService, WizardService wizardService) {
         this.magicalItemService = magicalItemService;
         this.wizardService = wizardService;

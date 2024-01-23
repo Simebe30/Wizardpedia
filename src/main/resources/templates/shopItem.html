@@ -33,6 +33,17 @@
     <button type="submit">Submit</button>
 </form>
 
+<form id="offensiveForm" style="display: none;" th:action="@{/offensive/shop}" th:method="post">
+
+    <label>Select a Wizard:
+        <select onchange="updateWizardCoins(this.value)" name="wizardIdOffensive">
+            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
+        </select>
+    </label>
+
+    <button type="submit">Submit</button>
+</form>
+
 <p>Item Details:</p>
 <ul>
     <li>Power Level: <span id="itemPower"></span></li>
@@ -84,11 +95,22 @@
                 break;
 
         }
+        console.log( selectedItemType)
+        console.log( itemPower)
+        console.log( itemPrice)
+
 
         document.getElementById("itemPower").innerText = itemPower;
         document.getElementById("itemPrice").innerText = itemPrice;
     }
 
+    function updateWizardCoins(wizardID){
+        console.log("Updating wizard coins for ID: " + wizardID);
+
+        // Rest of your code...
+
+        console.log("Wizard coins updated successfully.");
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
 

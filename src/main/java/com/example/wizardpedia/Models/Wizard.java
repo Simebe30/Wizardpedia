@@ -73,4 +73,5 @@ public class Wizard {
     public void setMagicalItems(Set<MagicalItem> magicalItems) {
         this.magicalItems = magicalItems;
     }
+
 }
