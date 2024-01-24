@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProtectiveService{
+public class ProtectiveService {
 
     private final MagicalItemService magicalItemService;  // Composición
 
@@ -25,17 +25,18 @@ public class ProtectiveService{
     }
 
 
-    public ProtectiveItem shopItem(Protective protective, Long wizardId) {
+    public boolean shopItem(Protective protective, Long wizardId) {
 
         Wizard wizard = wizardRepo.findWizardById(wizardId).get();
         int wizardMoney = wizard.getCoins();
         int itemPrice = protective.getPrice();
-        int currentWizardMoney = wizardMoney - itemPrice;
-        wizard.setCoins(currentWizardMoney);
-
+        int currentMoney = wizardMoney - itemPrice;
+        if (currentMoney < 0) {
+            return false;
+        }
+        wizard.setCoins(currentMoney);
         protective.setDisplayName(protective.name().toLowerCase() + " the " + protective.getDisplayName().toLowerCase());
-
-
-        return protectiveRepo.save(new ProtectiveItem(wizard, protective));
+        protectiveRepo.save(new ProtectiveItem(wizard, protective));
+        return true;
     }
 }

@@ -13,7 +13,7 @@ import java.util.Random;
 import java.util.Set;
 
 @Service
-public class OffensiveService{
+public class OffensiveService {
 
     private final MagicalItemService magicalItemService;
 
@@ -21,22 +21,27 @@ public class OffensiveService{
     private final WizardRepository wizardRepo;
 
     @Autowired
-    public OffensiveService(MagicalItemRepository magicalItemRepo, WizardRepository wizardRepo,  OffensiveRepository offensiveRepo) {
+    public OffensiveService(MagicalItemRepository magicalItemRepo, WizardRepository wizardRepo, OffensiveRepository offensiveRepo) {
         this.magicalItemService = new MagicalItemService(magicalItemRepo);
         this.offensiveRepo = offensiveRepo;
         this.wizardRepo = wizardRepo;
     }
 
-    public MagicalItem shopItem(Long wizardId) {
+    public boolean shopItem(Long wizardId) {
         Wizard wizard = wizardRepo.findWizardById(wizardId).get();
 
         Random random = new Random();
         List<Offensive> items = List.of(Offensive.values());
         Offensive item = items.get(random.nextInt(items.size()));
+        int currentMoney = wizard.getCoins() - 200;
+
+        if (currentMoney < 0) {
+            return false;
+        }
 
         wizard.setCoins(wizard.getCoins() - 200);
+        offensiveRepo.save(new OffensiveItem(wizard, item));
 
-        wizardRepo.save(wizard);
-        return offensiveRepo.save(new OffensiveItem(wizard, item));
+        return true;
     }
 }
