@@ -14,8 +14,8 @@
 </div>
 <div th:if="items" th:each="item : ${items}" th:object="${item}">
     <p> Magical item name:
-        <a th:text="*{name}" th:href="@{/item/list/__${item.name}__}"></a>
-        Wizard name: <span th:text="*{wizard.name}"></span>
+        <a th:text="*{name}" th:href="@{/item/__${item.name}__}"></a>
+        Wizard name: <a th:text="*{wizard.name}" th:href="@{/wizard/__*{wizard.name}__}" ></a>
     </p>
 </div>
 </body>
