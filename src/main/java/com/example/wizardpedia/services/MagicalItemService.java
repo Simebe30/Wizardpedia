@@ -2,9 +2,6 @@ package com.example.wizardpedia.services;
 
 import com.example.wizardpedia.Models.*;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
-import com.example.wizardpedia.repositories.ProtectiveRepository;
-import com.example.wizardpedia.repositories.WizardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,27 +16,27 @@ public class MagicalItemService {
         this.magicalItemRepository = magicalItemRepository;
     }
 
-    public List<MagicalItem> getItemsByName(String itemName){
-        List<MagicalItem> magicalItem =  magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
-        if(magicalItem.isEmpty()){
+    public List<MagicalItem> getItemsByName(String itemName) {
+        List<MagicalItem> magicalItem = magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
+        if (magicalItem.isEmpty()) {
             return new ArrayList<>();
         }
         return magicalItem;
     }
 
-    public boolean delete(Long id){
-        Optional<MagicalItem> maybeItem= magicalItemRepository.findById(id);
-        if(maybeItem.isEmpty()){
+    public boolean delete(Long id) {
+        Optional<MagicalItem> maybeItem = magicalItemRepository.findById(id);
+        if (maybeItem.isEmpty()) {
             return false;
-        }else{
+        } else {
             magicalItemRepository.deleteById(id);
             return true;
         }
     }
 
-    public boolean updateMagicalItem(Long id, String name, int powerLevel){
-        Optional<MagicalItem> maybeItem= Optional.ofNullable(magicalItemRepository.findMagicalItemById(id));
-        if(maybeItem.isEmpty()){
+    public boolean updateMagicalItem(Long id, String name, int powerLevel) {
+        Optional<MagicalItem> maybeItem = Optional.ofNullable(magicalItemRepository.findMagicalItemById(id));
+        if (maybeItem.isEmpty()) {
             return false;
         }
 
@@ -50,7 +47,7 @@ public class MagicalItemService {
         return true;
     }
 
-    public List<MagicalItem> getItemsByWizId(Long wizardId){
+    public List<MagicalItem> getItemsByWizId(Long wizardId) {
         return magicalItemRepository.findMagicalItemsByWizardId(wizardId);
     }
 

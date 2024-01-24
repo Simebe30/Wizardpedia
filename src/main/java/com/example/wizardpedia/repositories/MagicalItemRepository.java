@@ -16,5 +16,4 @@ public interface MagicalItemRepository extends JpaRepository<MagicalItem, Long> 
     List<MagicalItem> findMagicalItemByNameContainingIgnoreCase(String itemName);
 
 
-
 }

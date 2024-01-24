@@ -18,44 +18,46 @@ public class WizardService {
         this.wizardRepository = wizardRepository;
     }
 
-    public List<Wizard> getAllWizards(){
+    public List<Wizard> getAllWizards() {
         return wizardRepository.findAll();
     }
 
-    public void add(Wizard wizard){
+    public void add(Wizard wizard) {
         wizardRepository.save(wizard);
     }
-    public Wizard add2(String name, int age){
+
+    public Wizard add2(String name, int age) {
         Wizard newWizard = new Wizard(name, age);
         wizardRepository.save(newWizard);
         return newWizard;
     }
-    public Optional<Wizard> getWizard(Long id){
+
+    public Optional<Wizard> getWizard(Long id) {
         return wizardRepository.findById(id);
     }
 
-    public boolean deleteWizard(Long id){
+    public boolean deleteWizard(Long id) {
         Optional<Wizard> wizard = wizardRepository.findById(id);
-        if(wizard.isPresent()){
+        if (wizard.isPresent()) {
             wizardRepository.deleteById(id);
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
-    public boolean update(Long id, String name, int age){
+    public boolean update(Long id, String name, int age) {
         Optional<Wizard> wizard = wizardRepository.findById(id);
-        if(wizard.isEmpty()){
+        if (wizard.isEmpty()) {
             return false;
         }
         wizard.get().setName(name);
         wizard.get().setAge(age);
-         wizardRepository.save(wizard.get());
-         return true;
+        wizardRepository.save(wizard.get());
+        return true;
     }
 
-    public List<Wizard> getByName(String name){
+    public List<Wizard> getByName(String name) {
         return new ArrayList<>(wizardRepository.findWizardsByNameContainingIgnoreCase(name));
 
     }

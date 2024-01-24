@@ -1,7 +1,6 @@
 package com.example.wizardpedia.Models;
 
 
-
 public enum Protective {
 
     ARMOR("Armor", 100, 110),
@@ -14,7 +13,7 @@ public enum Protective {
     private int price;
     private int powerLevel;
 
-     Protective(String displayName, int price, int powerLevel) {
+    Protective(String displayName, int price, int powerLevel) {
         this.displayName = displayName;
         this.price = price;
         this.powerLevel = powerLevel;

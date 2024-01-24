@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Shop</title>
     <link rel="stylesheet" type="text/css" th:href="@{/styleAdd.css}">
+    <link rel="stylesheet" th:href="@{/headerStyle.css}">
 </head>
+<header th:insert="welcome.html :: headerFragment" class="headerContainer"></header>
 <body>
-
 <label for="magicItemType">Select Magic Item Type:</label>
 <select id="magicItemType" onchange="showForm(this.value)">
     <option value="protective">Protective Magical Item</option>
@@ -15,7 +16,7 @@
 
 <form id="protectiveForm" style="display: block;" th:action="@{/protective/shop}" th:method="post">
     <label>Select a Protective Item:
-        <select onchange="updateValue()"  id="itemType" name="protective">
+        <select onchange="updateValue()" id="itemType" name="protective">
             <option th:each="item : ${protectives}" th:value="${item}" th:text="${item.name}"></option>
         </select>
     </label>
@@ -26,7 +27,8 @@
 
     <label>Select a Wizard:
         <select onchange="updateWizardCoins(this.value)" name="wizardId">
-            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
+            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}"
+                    th:value="${wizard.getId()}"></option>
         </select>
     </label>
 
@@ -37,7 +39,8 @@
 
     <label>Select a Wizard:
         <select onchange="updateWizardCoins(this.value)" name="wizardIdOffensive">
-            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}" th:value="${wizard.getId()}"></option>
+            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}"
+                    th:value="${wizard.getId()}"></option>
         </select>
     </label>
 
@@ -65,6 +68,7 @@
             offensiveForm.style.display = "block";
         }
     }
+
     function updateValue() {
 
         let itemTypeSelect = document.getElementById("itemType");
@@ -95,16 +99,16 @@
                 break;
 
         }
-        console.log( selectedItemType)
-        console.log( itemPower)
-        console.log( itemPrice)
+        console.log(selectedItemType)
+        console.log(itemPower)
+        console.log(itemPrice)
 
 
         document.getElementById("itemPower").innerText = itemPower;
         document.getElementById("itemPrice").innerText = itemPrice;
     }
 
-    function updateWizardCoins(wizardID){
+    function updateWizardCoins(wizardID) {
         console.log("Updating wizard coins for ID: " + wizardID);
 
         // Rest of your code...
@@ -112,7 +116,7 @@
         console.log("Wizard coins updated successfully.");
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
 
         let itemTypeSelect = document.getElementById("itemType");
         itemTypeSelect.value = itemTypeSelect.options[0].value;

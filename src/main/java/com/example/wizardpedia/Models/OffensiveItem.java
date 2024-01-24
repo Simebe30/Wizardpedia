@@ -14,6 +14,7 @@ public class OffensiveItem extends MagicalItem {
 
     public OffensiveItem(Wizard wizard, Offensive offensive) {
         super(wizard, offensive.getDisplayName(), offensive.getPowerLevel(), 200);
+        this.offensiveType = offensive;
     }
 
     public OffensiveItem() {

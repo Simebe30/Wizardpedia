@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @DiscriminatorValue("protective")
-public class ProtectiveItem extends MagicalItem{
+public class ProtectiveItem extends MagicalItem {
 
     @Enumerated(EnumType.STRING)
     private Protective protectiveType;
@@ -13,6 +13,7 @@ public class ProtectiveItem extends MagicalItem{
         super(wizard, protectiveType.getDisplayName(), protectiveType.getPowerLevel(), protectiveType.getPrice());
         this.protectiveType = protectiveType;
     }
+
     public ProtectiveItem() {
 
     }

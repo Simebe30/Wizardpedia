@@ -2,6 +2,7 @@ package com.example.wizardpedia.Models;
 
 import jakarta.persistence.*;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,7 +67,7 @@ public class Wizard {
         return magicalItems;
     }
 
-    public int getTotalScore(){
+    public int getTotalScore() {
         return magicalItems.stream().mapToInt(MagicalItem::getPowerLevel).sum();
     }
 
