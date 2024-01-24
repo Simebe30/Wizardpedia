@@ -37,50 +37,51 @@ public class WizardController {
         List<MagicalItem> maybeItems = itemService.getItemsByName(searchInput);
 
 
-        if (!maybeWizards.isEmpty() && !maybeItems.isEmpty()) {
-                model.addAttribute("wizards", maybeWizards);
-                model.addAttribute("items", maybeItems);
-            return "listLinks";
-        } else if (maybeWizards.size() == 1) {
+        if (maybeWizards.size() == 1 && maybeItems.isEmpty()) {
             return "redirect:/wizard/" + searchInput;
-        } else if (maybeItems.size() == 1) {
+        } else if (maybeItems.size() == 1 && maybeWizards.isEmpty()) {
             return "redirect:/item/" + searchInput;
-        } else{
+        } else if (!maybeWizards.isEmpty() || !maybeItems.isEmpty()) {
+            model.addAttribute("wizards", maybeWizards);
+            model.addAttribute("items", maybeItems);
+            return "listLinks";
+        } else {
             re.addFlashAttribute("error", "the input doesn't exist");
             return "redirect:./list/";
         }
     }
+
     @GetMapping("/{wizardName}")
-    public String searchInput(@PathVariable(name = "wizardName") String wizardName, Model model, RedirectAttributes re){
+    public String searchInput(@PathVariable(name = "wizardName") String wizardName, Model model, RedirectAttributes re) {
         List<Wizard> wizards = wizardService.getByName(wizardName);
 
         if (wizards.isEmpty()) {
             throw new RuntimeException("the Wizard list is empty");
-        }else if(wizards.size() == 1){
+        } else if (wizards.size() == 1) {
             model.addAttribute("wizard", wizards.get(0));
             return "wizardDetails";
-        }else {
+        } else {
             re.addFlashAttribute("error", "the Wizard doesn't exist");
             return "index";
         }
     }
 
     @PostMapping("/list/add")
-    public String addWizardSubmit(Wizard wizard){
+    public String addWizardSubmit(Wizard wizard) {
 
         wizardService.add(wizard);
         return "redirect:./";
     }
 
     @PutMapping("/list/{id}")
-    public String updateWizard(@PathVariable Long id, Wizard wizard){
+    public String updateWizard(@PathVariable Long id, Wizard wizard) {
         wizardService.update(id, wizard.getName(), wizard.getAge());
         return "redirect:./";
     }
 
 
     @DeleteMapping("/list/{id}")
-    public String deleteWizard(@PathVariable Long id){
+    public String deleteWizard(@PathVariable Long id) {
         wizardService.deleteWizard(id);
         return "redirect:./";
     }

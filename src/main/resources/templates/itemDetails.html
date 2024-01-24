@@ -18,7 +18,7 @@
     <tr th:each="item, itemStat: ${items}" th:object="${item}">
         <td th:text="*{id}">
         <td>
-            <a th:text="*{name}" th:href="@{/item/list/__${item.name}__}"></a>
+            <a th:text="*{name}" th:href="@{/item/__${item.name}__}"></a>
         </td>
         <td th:text="*{getPowerLevel()}">
         <td>
