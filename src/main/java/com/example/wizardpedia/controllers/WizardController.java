@@ -27,7 +27,13 @@ public class WizardController {
 
     @GetMapping({"/list", "/list/"})
     public String index(Model model){
-        model.addAttribute("wizards", wizardService.getAllWizards());
+        List<Wizard> maybeWizards =  wizardService.getAllWizards();
+        if(maybeWizards.isEmpty()){
+            model.addAttribute("isWizards", false);
+        }else{
+            model.addAttribute("isWizards", true);
+        }
+        model.addAttribute("wizards", maybeWizards);
         return "index";
     }
 
