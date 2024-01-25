@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/wizards")
@@ -47,12 +49,12 @@ public class WizardRestController {
  */
     @PostMapping("/search")
     public ResponseEntity<?> searchWizardByName(@RequestBody SearchRequestDTO wizardName) {
-        Optional<Wizard> maybeWizard = wizardService.getWizardByName(wizardName.wizardName());
+        List<Wizard> wizardList = wizardService.getWizardsByName(wizardName.wizardName());
 
-        if (maybeWizard.isEmpty()) {
+        if (wizardList.isEmpty()) {
             return ResponseEntity.badRequest().body(new ErrorDTO("Put a valid id"));
         }else{
-            return ResponseEntity.ok(new WizardDTO(maybeWizard.get()));
+            return ResponseEntity.ok(wizardList.stream().map(w -> new WizardDTO(w)).collect(Collectors.toList()));
         }
     }
 
