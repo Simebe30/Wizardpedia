@@ -26,11 +26,11 @@ public class WizardController {
 
 
     @GetMapping({"/list", "/list/"})
-    public String index(Model model){
-        List<Wizard> maybeWizards =  wizardService.getAllWizards();
-        if(maybeWizards.isEmpty()){
+    public String index(Model model) {
+        List<Wizard> maybeWizards = wizardService.getAllWizards();
+        if (maybeWizards.isEmpty()) {
             model.addAttribute("isWizards", false);
-        }else{
+        } else {
             model.addAttribute("isWizards", true);
         }
         model.addAttribute("wizards", maybeWizards);
@@ -74,21 +74,20 @@ public class WizardController {
 
     @PostMapping("/list/add")
     public String addWizardSubmit(Wizard wizard) {
-
         wizardService.add(wizard);
         return "redirect:./";
     }
 
     @PutMapping("/list/{id}")
     public String updateWizard(@PathVariable Long id, Wizard wizard) {
-        wizardService.update(id, wizard.getName(), wizard.getAge());
+        wizardService.update(id, wizard);
         return "redirect:./";
     }
 
 
     @DeleteMapping("/list/{id}")
     public String deleteWizard(@PathVariable Long id) {
-        wizardService.deleteWizard(id);
+        wizardService.delete(id);
         return "redirect:./";
     }
 }

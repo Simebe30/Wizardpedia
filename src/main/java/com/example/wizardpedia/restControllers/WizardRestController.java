@@ -26,7 +26,7 @@ public class WizardRestController {
      * Search for wizard by ID.
      *
      * @param id The ID of the wizard to search for.
-     * @return ResponseEntity a found wizard or an error message.
+     * @return A response entity a found wizard or an error message.
      */
 
     @GetMapping("/search")
@@ -36,41 +36,63 @@ public class WizardRestController {
         if (maybeWizard.isPresent()) {
             Wizard wizard = maybeWizard.get();
             return ResponseEntity.ok(new WizardDTO(wizard));
-        }else{
+        } else {
             return ResponseEntity.badRequest().body(new ErrorDTO("Put a valid id"));
         }
     }
 
-/**
- * Search for wizards by name.
- *
- * @param wizardName The name of the wizard to search for.
- * @return ResponseEntity with a list of found wizards or an error message.
- */
+    /**
+     * Search for wizards by name.
+     *
+     * @param wizardName The name of the wizard to search for.
+     * @return A response entity with a list of found wizards or an error message.
+     */
     @PostMapping("/search")
     public ResponseEntity<?> searchWizardByName(@RequestBody SearchRequestDTO wizardName) {
         List<Wizard> wizardList = wizardService.getWizardsByName(wizardName.wizardName());
 
         if (wizardList.isEmpty()) {
             return ResponseEntity.badRequest().body(new ErrorDTO("Put a valid id"));
-        }else{
-            return ResponseEntity.ok(wizardList.stream().map(w -> new WizardDTO(w)).collect(Collectors.toList()));
+        } else {
+            return ResponseEntity.ok(wizardList.stream()
+                    .map(w -> new WizardDTO(w))
+                    .collect(Collectors.toList()));
         }
     }
 
+    /**
+     * Adds a new wizard.
+     *
+     * @param wizard The wizard object containing the name and age.
+     * @return A response entity with the newly created wizard.
+     */
     @PostMapping
-    public ResponseEntity<Object> addWizard(@RequestBody Wizard wizard){
-        return ResponseEntity.status(HttpStatus.CREATED).body(wizardService.add2(wizard.getName(), wizard.getAge()));
+    public ResponseEntity<Object> addWizard(@RequestBody Wizard wizard) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(wizardService.add(wizard));
     }
 
+    /**
+     * Updates a wizard with the provided ID.
+     *
+     * @param id     The ID of the wizard to be updated.
+     * @param wizard The wizard object containing the updated name and age.
+     * @return A response entity with a boolean indicating if the wizard was successfully updated.
+     */
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateWizard(@PathVariable Long id, @RequestBody Wizard wizard){
+    public ResponseEntity<?> updateWizard(@PathVariable Long id, @RequestBody Wizard wizard) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(wizardService.update(id, wizard.getName(), wizard.getAge()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(wizardService.update(id, wizard));
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteWizard(@PathVariable Long id){
 
-        return ResponseEntity.ok(wizardService.deleteWizard(id));
+    /**
+     * Deletes a wizard with the provided ID.
+     *
+     * @param id     The ID of the wizard to be deleted.
+     * @return A response entity with a boolean indicating if the wizard was successfully deleted.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteWizard(@PathVariable Long id) {
+
+        return ResponseEntity.ok(wizardService.delete(id));
     }
 }
