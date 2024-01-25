@@ -39,7 +39,7 @@ public class WizardController {
 
     @PostMapping("/search")
     public String search(@RequestParam String searchInput, Model model, RedirectAttributes re) {
-        List<Wizard> maybeWizards = wizardService.getByName(searchInput);
+        List<Wizard> maybeWizards = wizardService.getWizardsByName(searchInput);
         List<MagicalItem> maybeItems = itemService.getItemsByName(searchInput);
 
 
@@ -59,7 +59,7 @@ public class WizardController {
 
     @GetMapping("/{wizardName}")
     public String searchInput(@PathVariable(name = "wizardName") String wizardName, Model model, RedirectAttributes re) {
-        List<Wizard> wizards = wizardService.getByName(wizardName);
+        List<Wizard> wizards = wizardService.getWizardsByName(wizardName);
 
         if (wizards.isEmpty()) {
             throw new RuntimeException("the Wizard list is empty");

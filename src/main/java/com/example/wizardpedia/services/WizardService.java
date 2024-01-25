@@ -5,7 +5,6 @@ import com.example.wizardpedia.repositories.MagicalItemRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +31,18 @@ public class WizardService {
         return newWizard;
     }
 
-    public Optional<Wizard> getWizard(Long id) {
+    public Optional<Wizard> getWizardById(Long id) {
         return wizardRepository.findById(id);
+    }
+
+    public List<Wizard> getWizardsByName(String name) {
+        return wizardRepository.findWizardsByNameContainingIgnoreCase(name);
+
+    }
+
+    public Optional<Wizard> getWizardByName(String name) {
+        return wizardRepository.findWizardByNameContainingIgnoreCase(name);
+
     }
 
     public boolean deleteWizard(Long id) {
@@ -55,10 +64,5 @@ public class WizardService {
         wizard.get().setAge(age);
         wizardRepository.save(wizard.get());
         return true;
-    }
-
-    public List<Wizard> getByName(String name) {
-        return new ArrayList<>(wizardRepository.findWizardsByNameContainingIgnoreCase(name));
-
     }
 }
