@@ -9,8 +9,10 @@ import java.util.Optional;
 
 @Repository
 public interface WizardRepository extends JpaRepository<Wizard,Long> {
-    Optional<Wizard> findWizardByNameContainingIgnoreCase(String name);
     List<Wizard> findWizardsByNameContainingIgnoreCase(String name);
+    Optional<Wizard> findWizardByNameContainingIgnoreCase(String name);
 
-    //Wizard findWizardById(Long id);
+
+    Optional<Wizard> findWizardById(Long id);
+
 }

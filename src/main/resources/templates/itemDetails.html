@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/headerStyle.css}">
 </head>
-<body>
+<header th:insert="welcome.html :: headerFragment" class="headerContainer"></header><body>
 <table>
     <tr>
         <th> Item ID</th>
         <th> Magical items</th>
-        <th> Power </th>
+        <th> Power</th>
         <th> Update</th>
         <th> Delete</th>
         <th> Wizard name</th>
@@ -17,16 +18,13 @@
     <tr th:each="item, itemStat: ${items}" th:object="${item}">
         <td th:text="*{id}">
         <td>
-            <a th:text="*{name}" th:href="@{/item/list/__${item.name}__}"></a>
+            <a th:text="*{name}" th:href="@{/item/__${item.name}__}"></a>
         </td>
         <td th:text="*{getPowerLevel()}">
         <td>
             <form th:method="put" th:action="@{/item/list/__${item.wizard.id}__/__${item.id}__}">
                 <label>
                     <input type="text" th:value="*{name}" name="name">
-                </label>
-                <label>
-                    <input type="number" th:value="*{powerLevel}" name="powerLevel" th:min="0">
                 </label>
                 <button> Update</button>
             </form>
@@ -37,7 +35,8 @@
             </form>
         </td>
         <td>
-            <a th:if="${itemStat.first}" th:text="*{getWizard().getName()}" th:href="@{/wizard/__${item.wizard.name}__}"></a>
+            <a th:if="${itemStat.first}" th:text="*{getWizard().getName()}"
+               th:href="@{/wizard/__${item.wizard.name}__}"></a>
         </td>
     </tr>
 </table>

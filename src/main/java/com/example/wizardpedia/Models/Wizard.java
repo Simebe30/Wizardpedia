@@ -2,12 +2,13 @@ package com.example.wizardpedia.Models;
 
 import jakarta.persistence.*;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 public class Wizard {
-
 
     @Id
     @GeneratedValue
@@ -17,11 +18,10 @@ public class Wizard {
 
     private int age;
 
-    private int coins;
+    private int coins = 1000;
 
     @OneToMany(mappedBy = "wizard", cascade = CascadeType.ALL)
     Set<MagicalItem> magicalItems = new HashSet<>();
-
 
     public Wizard() {
     }
@@ -29,17 +29,14 @@ public class Wizard {
     public Wizard(String name, int age) {
         this.name = name;
         this.age = age;
-        this.coins = 1000;
-    }
-
-
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -58,15 +55,24 @@ public class Wizard {
         this.age = age;
     }
 
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
     public Set<MagicalItem> getMagicalItems() {
         return magicalItems;
     }
 
-    public int getTotalScore(){
+    public int getTotalScore() {
         return magicalItems.stream().mapToInt(MagicalItem::getPowerLevel).sum();
     }
 
     public void setMagicalItems(Set<MagicalItem> magicalItems) {
         this.magicalItems = magicalItems;
     }
+
 }

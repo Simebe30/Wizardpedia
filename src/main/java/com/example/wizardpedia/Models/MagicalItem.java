@@ -2,9 +2,10 @@ package com.example.wizardpedia.Models;
 
 import jakarta.persistence.*;
 
+
 @Entity
-@Table(name = "magicalItems")
-public class MagicalItem {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE )
+public abstract class MagicalItem {
 
 
     @Id
@@ -14,10 +15,8 @@ public class MagicalItem {
     private String name;
 
     private int powerLevel;
-    private Protective protectiveItem;
 
-
-    private String offensiveItem;
+    private int price;
 
     @ManyToOne
     private Wizard wizard;
@@ -25,12 +24,32 @@ public class MagicalItem {
     public MagicalItem() {
     }
 
-    public MagicalItem(String name, int powerLevel) {
+    public MagicalItem(Wizard wizard, String name, int powerLevel) {
+        this.wizard = wizard;
         this.name = name;
         this.powerLevel = powerLevel;
     }
+    public MagicalItem(Wizard wizard, String name, int powerLevel, int price) {
+        this.wizard = wizard;
+        this.name = name;
+        this.powerLevel = powerLevel;
+        this.price = price;
+    }
 
-    public MagicalItem(String name, int powerLevel, Wizard wizard) {
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,11 +76,8 @@ public class MagicalItem {
         this.wizard = wizard;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
-        return id;
-    }
+
 }
+
+

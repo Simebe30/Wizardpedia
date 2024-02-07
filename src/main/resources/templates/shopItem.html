@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styleAdd.css}">
+    <link rel="stylesheet" th:href="@{/headerStyle.css}">
+</head>
+<header th:insert="welcome.html :: headerFragment" class="headerContainer"></header>
+<body>
+<label for="magicItemType">Select Magic Item Type:</label>
+<select id="magicItemType" onchange="showForm(this.value)">
+    <option value="protective">Protective Magical Item</option>
+    <option value="offensive">Offensive Magical Item</option>
+</select>
+
+<form id="protectiveForm" style="display: block;" th:action="@{/protective/shop}" th:method="post">
+    <label>Select a Protective Item:
+        <select onchange="updateValue()" id="itemType" name="protective">
+            <option th:each="item : ${protectives}" th:value="${item}" th:text="${item.name}"></option>
+        </select>
+    </label>
+
+    <label>Give a name to the magical item:
+        <input type="text" name="displayName" required>
+    </label>
+
+    <label>Select a Wizard:
+        <select onchange="updateWizardCoins(this.value)" name="wizardId">
+            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}"
+                    th:value="${wizard.getId()}"></option>
+        </select>
+    </label>
+
+    <button type="submit">Submit</button>
+</form>
+
+<form id="offensiveForm" style="display: none;" th:action="@{/offensive/shop}" th:method="post">
+
+    <label>Select a Wizard:
+        <select onchange="updateWizardCoins(this.value)" name="wizardIdOffensive">
+            <option th:each="wizard: ${wizards}" th:object="${wizard}" th:text="${wizard.getName()}"
+                    th:value="${wizard.getId()}"></option>
+        </select>
+    </label>
+
+    <button type="submit">Submit</button>
+</form>
+
+<p>Item Details:</p>
+<ul>
+    <li>Power Level: <span id="itemPower"></span></li>
+    <li>Price: <span id="itemPrice"></span> coins</li>
+</ul>
+
+
+<script th:inline="javascript">
+
+    function showForm(selectedOption) {
+        let protectiveForm = document.getElementById("protectiveForm");
+        let offensiveForm = document.getElementById("offensiveForm");
+
+        if (selectedOption === "protective") {
+            protectiveForm.style.display = "block";
+            offensiveForm.style.display = "none";
+        } else if (selectedOption === "offensive") {
+            protectiveForm.style.display = "none";
+            offensiveForm.style.display = "block";
+        }
+    }
+
+    function updateValue() {
+
+        let itemTypeSelect = document.getElementById("itemType");
+        let selectedItemType = itemTypeSelect.value;
+
+        let itemPower, itemPrice;
+
+        switch (selectedItemType) {
+            case "ARMOR":
+                itemPower = 110;
+                itemPrice = 100;
+                break;
+            case "SHIELD":
+                itemPower = 53;
+                itemPrice = 50;
+                break;
+            case "CLOAK":
+                itemPower = 32;
+                itemPrice = 30;
+                break;
+            case "AMULET":
+                itemPower = 15;
+                itemPrice = 20;
+                break;
+            case "RING":
+                itemPower = 3;
+                itemPrice = 5;
+                break;
+
+        }
+        console.log(selectedItemType)
+        console.log(itemPower)
+        console.log(itemPrice)
+
+
+        document.getElementById("itemPower").innerText = itemPower;
+        document.getElementById("itemPrice").innerText = itemPrice;
+    }
+
+    function updateWizardCoins(wizardID) {
+        console.log("Updating wizard coins for ID: " + wizardID);
+
+        // Rest of your code...
+
+        console.log("Wizard coins updated successfully.");
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        let itemTypeSelect = document.getElementById("itemType");
+        itemTypeSelect.value = itemTypeSelect.options[0].value;
+
+        updateValue();
+    });
+</script>
+
+
+</body>
+</html>

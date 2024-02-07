@@ -2,15 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet"  th:href="@{/headerStyle.css}">
-    <link rel="stylesheet"  th:href="@{/mainStyle.css}">
+    <link rel="stylesheet" th:href="@{/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/mainStyle.css}">
     <title>Welcome to Wizardpedia</title>
 </head>
 <body>
 <header>
-<h1 class="headerContainer">
-    <a th:href="@{/wizard/list}"> Wizardpedia </a>
-</h1>
+    <h1 th:fragment="headerFragment" class="headerContainer">
+        <a th:href="@{/wizard/list}"> Wizardpedia </a>
+    </h1>
 </header>
 <p class="textNotTable">
     Hello and welcome to Wizardpedia!<br>
@@ -21,9 +21,9 @@
     and discovering the magic!
 </p>
 <form th:action="@{/wizard/list}" method="get">
-<button>
-    Let's start!
-</button>
+    <button>
+        Let's start!
+    </button>
 </form>
 </body>
 </html>

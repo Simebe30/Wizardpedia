@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>search</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+    <link rel="stylesheet" th:href="@{/headerStyle.css}">
 </head>
+<header th:insert="welcome.html :: headerFragment" class="headerContainer"></header>
 <body>
-<h1> <a th:href="@{/wizard/__${wizard.name}__}">Wizard information</a></h1>
-<h1> <a th:href="@{/item/list/__${wizard.id}__}">Items information</a></h1>
+<h1><a th:href="@{/wizard/__${wizard.name}__}">Wizard information</a></h1>
+<h1><a th:href="@{/item/list/__${wizard.id}__}">Items information</a></h1>
 <table>
     <tr>
         <th> ID</th>
         <th> Wizard name</th>
         <th> Age</th>
+        <th> Treasure</th>
     </tr>
     <tr th:object="${wizard}">
         <td th:text="*{id}">
         <td th:text="*{name}">
         <td th:text="*{age}">
+        <td th:text="*{coins} + ' coins'">
     </tr>
 </table>
 </body>

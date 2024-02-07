@@ -1,14 +1,15 @@
 package com.example.wizardpedia.controllers;
 
 import com.example.wizardpedia.Models.MagicalItem;
+import com.example.wizardpedia.Models.Protective;
 import com.example.wizardpedia.services.MagicalItemService;
 import com.example.wizardpedia.services.WizardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/item")
@@ -16,6 +17,7 @@ public class MagicalItemController {
     private final MagicalItemService magicalItemService;
     private final WizardService wizardService;
 
+    @Autowired
     public MagicalItemController(MagicalItemService magicalItemService, WizardService wizardService) {
         this.magicalItemService = magicalItemService;
         this.wizardService = wizardService;
@@ -46,19 +48,13 @@ public class MagicalItemController {
     }
 
 
-    @GetMapping("/add")
-    public String getAddItem(Model model) {
+    @GetMapping("/shop")
+    public String showShopForm(Model model) {
         model.addAttribute("wizards", wizardService.getAllWizards());
+        model.addAttribute("protectives", Protective.values());
 
-        return "addItem";
+        return "shopItem";
     }
-
-    @PostMapping("/add")
-    public String addItemSubmit(MagicalItem magicalItem) {
-        magicalItemService.addItem(magicalItem);
-        return "redirect:/wizard/list";
-    }
-
     @PutMapping("/list/{wizardName}/{itemId}")
     public String updateItem(@PathVariable String wizardName,
                              @PathVariable Long itemId,

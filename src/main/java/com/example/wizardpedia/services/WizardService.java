@@ -5,7 +5,6 @@ import com.example.wizardpedia.repositories.MagicalItemRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,52 +12,76 @@ import java.util.Optional;
 public class WizardService {
 
     private final WizardRepository wizardRepository;
-    private final MagicalItemRepository magicalItemRepository;
 
     public WizardService(WizardRepository wizardRepository, MagicalItemRepository magicalItemRepository) {
         this.wizardRepository = wizardRepository;
-        this.magicalItemRepository = magicalItemRepository;
     }
 
-    public List<Wizard> getAllWizards(){
+    /**
+     * Retrieves a list of all wizards.
+     *
+     * @return A list of all wizards.
+     */
+    public List<Wizard> getAllWizards() {
         return wizardRepository.findAll();
     }
 
-    public void add(Wizard wizard){
-        wizardRepository.save(wizard);
-    }
-    public Wizard add2(String name, int age){
-        Wizard newWizard = new Wizard(name, age);
-        wizardRepository.save(newWizard);
-        return newWizard;
-    }
-    public Optional<Wizard> getWizard(Long id){
+    /**
+     * Retrieves a wizard by ID.
+     *
+     * @param id The ID of the wizard.
+     * @return An optional containing the wizard if found, or an empty optional otherwise.
+     */
+    public Optional<Wizard> getWizardById(Long id) {
         return wizardRepository.findById(id);
     }
 
-    public boolean deleteWizard(Long id){
-        Optional<Wizard> wizard = wizardRepository.findById(id);
-        if(wizard.isPresent()){
+    /**
+     * Retrieves wizards by name (case-insensitive).
+     *
+     * @param name The name to search for.
+     * @return A list of wizards matching the provided name.
+     */
+    public List<Wizard> getWizardsByName(String name) {
+        return wizardRepository.findWizardsByNameContainingIgnoreCase(name);
+    }
+
+    /**
+     * Adds a new wizard.
+     *
+     * @param wizard The wizard to be added.
+     * @return The newly added wizard.
+     */
+    public Wizard add(Wizard wizard) {
+        return wizardRepository.save(wizard);
+    }
+
+    /**
+     * Deletes a wizard by ID.
+     *
+     * @param id The ID of the wizard to be deleted.
+     * @return true if the wizard was found and deleted, false otherwise.
+     */
+    public boolean delete(Long id) {
+        return wizardRepository.findById(id).map(w -> {
             wizardRepository.deleteById(id);
             return true;
-        }else {
-            return false;
-        }
+        }).orElse(false);
     }
 
-    public boolean update(Long id, String name, int age){
-        Optional<Wizard> wizard = wizardRepository.findById(id);
-        if(wizard.isEmpty()){
-            return false;
-        }
-        wizard.get().setName(name);
-        wizard.get().setAge(age);
-         wizardRepository.save(wizard.get());
-         return true;
-    }
-
-    public List<Wizard> getByName(String name){
-        return new ArrayList<>(wizardRepository.findWizardsByNameContainingIgnoreCase(name));
-
+    /**
+     * Updates a wizard's information.
+     *
+     * @param id     The ID of the wizard to be updated.
+     * @param wizard The updated wizard information.
+     * @return true if the wizard was found and updated, false otherwise.
+     */
+    public boolean update(Long id, Wizard wizard) {
+        return wizardRepository.findById(id).map(w -> {
+            w.setName(wizard.getName());
+            w.setAge(wizard.getAge());
+            wizardRepository.save(w);
+            return true;
+        }).orElse(false);
     }
 }
