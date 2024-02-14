@@ -29,16 +29,16 @@ public class MagicalItemController {
 
         if (items.isEmpty()) {
             throw new RuntimeException("the item list is empty");
-        }else if(items.size() == 1){
+        } else if (items.size() == 1) {
             model.addAttribute("item", items.get(0));
             return "individualItemsDetails";
-        }else {
+        } else {
             throw new RuntimeException("the item doesn't exist");
         }
     }
 
     @GetMapping("/list/{wizardId}")
-    public String getItemsDetails(@PathVariable Long wizardId, Model model){
+    public String getItemsDetails(@PathVariable Long wizardId, Model model) {
         List<MagicalItem> items = magicalItemService.getItemsByWizId(wizardId);
         if (items.isEmpty()) {
             throw new RuntimeException("the item list is empty");
@@ -55,20 +55,20 @@ public class MagicalItemController {
 
         return "shopItem";
     }
+
     @PutMapping("/list/{wizardName}/{itemId}")
     public String updateItem(@PathVariable String wizardName,
                              @PathVariable Long itemId,
-                             MagicalItem magicalItem){
+                             MagicalItem magicalItem) {
 
         magicalItemService.updateMagicalItem(itemId, magicalItem.getName(), magicalItem.getPowerLevel());
         return "redirect:/item/list/" + wizardName + "/" + itemId;
     }
 
     @DeleteMapping("/list/{wizardId}/{itemId}")
-    public String deleteItem(@PathVariable String wizardId, @PathVariable Long itemId){
+    public String deleteItem(@PathVariable String wizardId, @PathVariable Long itemId) {
         magicalItemService.delete(itemId);
         return "redirect:/item/list/" + wizardId;
 
     }
-
 }

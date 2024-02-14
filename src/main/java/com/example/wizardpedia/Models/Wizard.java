@@ -71,8 +71,5 @@ public class Wizard {
         return magicalItems.stream().mapToInt(MagicalItem::getPowerLevel).sum();
     }
 
-    public void setMagicalItems(Set<MagicalItem> magicalItems) {
-        this.magicalItems = magicalItems;
-    }
 
 }

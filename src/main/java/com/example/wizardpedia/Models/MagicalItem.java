@@ -76,8 +76,6 @@ public abstract class MagicalItem {
         this.wizard = wizard;
     }
 
-
-
 }
 
 

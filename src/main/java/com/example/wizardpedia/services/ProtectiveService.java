@@ -4,7 +4,6 @@ import com.example.wizardpedia.Models.Protective;
 import com.example.wizardpedia.Models.ProtectiveItem;
 import com.example.wizardpedia.Models.Wizard;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
-import com.example.wizardpedia.repositories.ProtectiveRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProtectiveService {
 
-    private final MagicalItemService magicalItemService;  // Composición
+    private final MagicalItemService magicalItemService;
 
-    private final ProtectiveRepository protectiveRepo;
     private final WizardRepository wizardRepo;
 
     @Autowired
-    public ProtectiveService(MagicalItemRepository magicalItemRepo, WizardRepository wizardRepo, ProtectiveRepository protectiveRepo) {
+    public ProtectiveService(MagicalItemRepository magicalItemRepo, WizardRepository wizardRepo) {
         this.magicalItemService = new MagicalItemService(magicalItemRepo);
         this.wizardRepo = wizardRepo;
-        this.protectiveRepo = protectiveRepo;
     }
 
 
@@ -36,7 +33,7 @@ public class ProtectiveService {
         }
         wizard.setCoins(currentMoney);
         protective.setDisplayName(protective.name().toLowerCase() + " the " + protective.getDisplayName().toLowerCase());
-        protectiveRepo.save(new ProtectiveItem(wizard, protective));
+        magicalItemService.save(new ProtectiveItem(wizard, protective));
         return true;
     }
 }

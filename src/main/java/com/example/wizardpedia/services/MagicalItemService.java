@@ -4,7 +4,6 @@ import com.example.wizardpedia.Models.*;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,12 +15,12 @@ public class MagicalItemService {
         this.magicalItemRepository = magicalItemRepository;
     }
 
+    public void save(MagicalItem magicalItem) {
+        magicalItemRepository.save(magicalItem);
+    }
+
     public List<MagicalItem> getItemsByName(String itemName) {
-        List<MagicalItem> magicalItem = magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
-        if (magicalItem.isEmpty()) {
-            return new ArrayList<>();
-        }
-        return magicalItem;
+        return magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
     }
 
     public boolean delete(Long id) {
@@ -50,6 +49,5 @@ public class MagicalItemService {
     public List<MagicalItem> getItemsByWizId(Long wizardId) {
         return magicalItemRepository.findMagicalItemsByWizardId(wizardId);
     }
-
 }
 

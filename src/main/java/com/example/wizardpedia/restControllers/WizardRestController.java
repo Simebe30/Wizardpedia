@@ -23,11 +23,11 @@ public class WizardRestController {
     }
 
     /**
-     * Search for wizard by ID.
+     * Search wizard by ID.
      *
      * @param id The ID of the wizard to search for.
-     * @return A response entity a found wizard or an error message.
-     */
+<     * @return A ResponseEntity containing either the found wizard or an error message.
+>     */
 
     @GetMapping("/search")
     public ResponseEntity<?> searchWizardBy(@RequestParam Long id) {
@@ -42,7 +42,7 @@ public class WizardRestController {
     }
 
     /**
-     * Search for wizards by name.
+     * Search wizards by name.
      *
      * @param wizardName The name of the wizard to search for.
      * @return A response entity with a list of found wizards or an error message.
@@ -80,7 +80,6 @@ public class WizardRestController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateWizard(@PathVariable Long id, @RequestBody Wizard wizard) {
-
         return ResponseEntity.status(HttpStatus.CREATED).body(wizardService.update(id, wizard));
     }
 
