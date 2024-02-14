@@ -1,7 +1,6 @@
 package com.example.wizardpedia.services;
 
 import com.example.wizardpedia.Models.Wizard;
-import com.example.wizardpedia.repositories.MagicalItemRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ public class WizardService {
 
     private final WizardRepository wizardRepository;
 
-    public WizardService(WizardRepository wizardRepository, MagicalItemRepository magicalItemRepository) {
+    public WizardService(WizardRepository wizardRepository) {
         this.wizardRepository = wizardRepository;
     }
 

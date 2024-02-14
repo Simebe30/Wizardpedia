@@ -5,7 +5,6 @@ import com.example.wizardpedia.repositories.MagicalItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MagicalItemService {
@@ -23,27 +22,18 @@ public class MagicalItemService {
         return magicalItemRepository.findMagicalItemByNameContainingIgnoreCase(itemName);
     }
 
-    public boolean delete(Long id) {
-        Optional<MagicalItem> maybeItem = magicalItemRepository.findById(id);
-        if (maybeItem.isEmpty()) {
-            return false;
-        } else {
-            magicalItemRepository.deleteById(id);
-            return true;
-        }
+    public void delete(Long id) {
+        magicalItemRepository.findById(id)
+                .ifPresent(item -> magicalItemRepository.deleteById(id));
     }
 
-    public boolean updateMagicalItem(Long id, String name, int powerLevel) {
-        Optional<MagicalItem> maybeItem = Optional.ofNullable(magicalItemRepository.findMagicalItemById(id));
-        if (maybeItem.isEmpty()) {
-            return false;
-        }
-
-        MagicalItem magicalItem = maybeItem.get();
-        magicalItem.setName(name);
-        magicalItem.setPowerLevel(powerLevel);
-        magicalItemRepository.save(magicalItem);
-        return true;
+    public void updateMagicalItem(Long id, String name, int powerLevel) {
+        magicalItemRepository.findMagicalItemById(id)
+                .ifPresent(magicalItem -> {
+                    magicalItem.setName(name);
+                    magicalItem.setPowerLevel(powerLevel);
+                    magicalItemRepository.save(magicalItem);
+                });
     }
 
     public List<MagicalItem> getItemsByWizId(Long wizardId) {
