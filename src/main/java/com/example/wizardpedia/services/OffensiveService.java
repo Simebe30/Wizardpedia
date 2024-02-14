@@ -2,28 +2,22 @@ package com.example.wizardpedia.services;
 
 import com.example.wizardpedia.Models.*;
 import com.example.wizardpedia.repositories.MagicalItemRepository;
-import com.example.wizardpedia.repositories.OffensiveRepository;
-import com.example.wizardpedia.repositories.ProtectiveRepository;
 import com.example.wizardpedia.repositories.WizardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 @Service
 public class OffensiveService {
 
     private final MagicalItemService magicalItemService;
-
-    private final OffensiveRepository offensiveRepo;
     private final WizardRepository wizardRepo;
 
     @Autowired
-    public OffensiveService(MagicalItemRepository magicalItemRepo, WizardRepository wizardRepo, OffensiveRepository offensiveRepo) {
+    public OffensiveService(MagicalItemRepository magicalItemRepo, WizardRepository wizardRepo) {
         this.magicalItemService = new MagicalItemService(magicalItemRepo);
-        this.offensiveRepo = offensiveRepo;
         this.wizardRepo = wizardRepo;
     }
 
@@ -40,7 +34,7 @@ public class OffensiveService {
         }
 
         wizard.setCoins(wizard.getCoins() - 200);
-        offensiveRepo.save(new OffensiveItem(wizard, item));
+        magicalItemService.save(new OffensiveItem(wizard, item));
 
         return true;
     }
