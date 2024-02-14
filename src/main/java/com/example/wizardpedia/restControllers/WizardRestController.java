@@ -55,7 +55,7 @@ public class WizardRestController {
             return ResponseEntity.badRequest().body(new ErrorDTO("Put a valid id"));
         } else {
             return ResponseEntity.ok(wizardList.stream()
-                    .map(w -> new WizardDTO(w))
+                    .map(WizardDTO::new)
                     .collect(Collectors.toList()));
         }
     }
